@@ -57,16 +57,16 @@ const Features = () => {
 	}, [handleScroll]);
 
 	return (
-		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2">
+		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2 py-6">
 			{/* Slider Container */}
 			<div
 				ref={sliderRef}
-				className="flex overflow-x-scroll no-scrollbar w-full h-full snap-x snap-mandatory"
+				className="flex overflow-x-auto overflow-y-hidden no-scrollbar w-full h-full snap-x snap-mandatory"
 			>
 				{data.map((slide, index) => (
 					<div
 						key={index}
-						className="flex flex-col items-center snap-center justify-between pt-[90px] min-w-full p-6"
+						className="flex flex-col items-center snap-center justify-between pt-[90px] min-w-full px-6"
 					>
 						{/* Slide Content */}
 						<div className="text-center text-white">
@@ -75,7 +75,7 @@ const Features = () => {
 
 						{/* Image Section */}
 						<div className="flex justify-center">
-							<img src={slide.img} className="object-contain w-full" />
+							<img src={slide.img} className="object-contain max-w-72" />
 						</div>
 						<div className="text-center text-white">
 							<p className=" text-lg">{slide.description}</p>
@@ -85,7 +85,7 @@ const Features = () => {
 			</div>
 
 			{/* Pagination Dots */}
-			<div className="flex space-x-2 mb-8 mt-4">
+			<div className="flex space-x-2 mb-8 mt-4 px-6">
 				{data.map((_, index) => (
 					<div
 						key={index}
@@ -99,7 +99,7 @@ const Features = () => {
 			</div>
 
 			{/* Continue Button */}
-			<div className="text-center mt-4 w-full">
+			<div className="text-center w-screen px-6">
 				<button
 					className="bg-primYellow w-full max-w-md py-3 rounded-full font-bold text-xl text-black"
 					onClick={handleNext}
