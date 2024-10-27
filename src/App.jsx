@@ -1,22 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Preloader from './pages/components/Preloader'
-import Languages from './pages/Languages';
-import Features from './pages/Features';
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
+import Preloader from "./pages/components/Preloader";
+import Languages from "./pages/Languages";
+import Features from "./pages/Features";
+import "./App.css";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a loading delay or fetch data
+    const timer = setTimeout(() => setLoading(false), 2000); // Adjust time as needed
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <Router>
-      <Routes>
-        <Route path='/' element={<Languages/>}/>
-        <Route path='/features' element={<Features/>}/>
-      </Routes>
+      {loading ? (
+        <Preloader />
+      ) : (
+        <Routes>
+          <Route path="/" element={<Preloader />} />
+          <Route path="/languages" element={<Languages />} />
+          <Route path="/features" element={<Features />} />
+        </Routes>
+      )}
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

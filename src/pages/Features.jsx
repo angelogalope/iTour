@@ -57,7 +57,7 @@ const Features = () => {
 	}, [handleScroll]);
 
 	return (
-		<div className="flex flex-col items-center bg-primGreen h-screen justify-center p-6 gap-2 z-20">
+		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2">
 			{/* Slider Container */}
 			<div
 				ref={sliderRef}
@@ -66,8 +66,7 @@ const Features = () => {
 				{data.map((slide, index) => (
 					<div
 						key={index}
-						className="flex flex-col items-center snap-center justify-between pt-[90px]"
-						style={{ minWidth: "100%" }}
+						className="flex flex-col items-center snap-center justify-between pt-[90px] min-w-full p-6"
 					>
 						{/* Slide Content */}
 						<div className="text-center text-white">
