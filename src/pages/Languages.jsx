@@ -1,21 +1,28 @@
 import React from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 export default function Languages() {
+	const navigate = useNavigate();
+
+	const handleContinue = () => {
+		navigate("/features");
+	}
+
 	return (
-		<div className="bg-cover bg-primGreen w-screen h-screen flex items-center justify-center">
-			<div className="flex flex-col justify-between m-10 gap-14">
-				<button className="flex items-start justify-start">
+		<div className="bg-cover bg-primGreen h-screen flex items-center justify-center pt-[90px]">
+			<div className="flex flex-col justify-between m-10 gap-8">
+				{/* <button className="flex items-start justify-start">
 					<IoMdArrowRoundBack className="text-white" size={42} />
-				</button>
+				</button> */}
 				<div className="flex flex-col items-center text-center text-white gap-2">
-					<h1 className="text-2xl font-bold">Select your language</h1>
+					<h1 className="text-3xl font-bold">Select your language</h1>
 					<p>
 						Choose your preferred language when using our application to make
 						the experience more good.
 					</p>
 				</div>
-				<div className="flex flex-col text-white gap-4">
+				<div className="flex flex-col text-white gap-4 text-lg">
 					<button className="border w-full text-start font-semibold p-4 rounded-lg bg-slate-50 bg-opacity-25">
 						English
 					</button>
@@ -35,7 +42,7 @@ export default function Languages() {
 						Chinese
 					</button>
 				</div>
-				<button className="bg-primYellow w-full p-4 rounded-full font-semibold">
+				<button onClick={handleContinue} className="bg-primYellow w-full p-4 rounded-full font-semibold text-xl">
 					Continue
 				</button>
 			</div>
