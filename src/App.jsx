@@ -5,14 +5,15 @@ import './App.css'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Preloader from './pages/components/Preloader'
 import Languages from './pages/Languages';
+import Features from './pages/Features';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <Router>
       <Routes>
         <Route path='/' element={<Languages/>}/>
+        <Route path='/features' element={<Features/>}/>
       </Routes>
     </Router>
   )
