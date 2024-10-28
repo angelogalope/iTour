@@ -1,22 +1,25 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router";
 import data from "../data/sliderData";
 
 const Features = () => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const sliderRef = useRef(null);
+	const navigate = useNavigate();
 
+	
 	const handleNext = () => {
 		if (currentIndex < data.length - 1) {
 			setCurrentIndex(currentIndex + 1);
 			scrollToIndex(currentIndex + 1);
 		} else {
-			console.log("End of data or navigate somewhere");
+			navigate("/permissions");
 		}
 	};
 
-	const handleSkip = () => {
-		console.log("Skipped!");
-	};
+	const handleContinue = () => {
+		navigate("/permissions");
+	}	
 
 	const scrollToIndex = (index) => {
 		sliderRef.current.scrollTo({
@@ -110,7 +113,7 @@ const Features = () => {
 				{/* Skip Link */}
 				<p
 					className="text-white mt-5 text-lg cursor-pointer"
-					onClick={handleSkip}
+					onClick={handleContinue}
 				>
 					Skip
 				</p>
