@@ -6,6 +6,7 @@ import Features from "./pages/Features";
 import "./App.css";
 import Permissions from "./pages/Permissions";
 import Welcome from "./pages/Welcome";
+import MapScreen from "./pages/MapScreen";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -26,6 +27,7 @@ function App() {
           <Route path="/features" element={<Features />} />
           <Route path="/permissions" element={<Permissions />} />
           <Route path="/welcome" element={<Welcome />} />
+          <Route path="/mapscreen" element={<MapScreen />} />
         </Routes>
       )}
     </Router>

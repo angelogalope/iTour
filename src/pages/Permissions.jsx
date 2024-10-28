@@ -19,7 +19,7 @@ export default function Permissions() {
   }
 
 	return (
-		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2 p-6">
+		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2 p-6 relative pb-28">
 			<div className="flex flex-col justify-start items-start gap-6">
 				<button onClick={handleBack}>
 					<IoArrowBack
@@ -66,12 +66,14 @@ export default function Permissions() {
 					</div>
 				</div>
 			</div>
-			<button
-				className="bg-primYellow w-full max-w-md py-3 rounded-full font-bold text-xl text-black"
-				onClick={handleContinue}
-			>
-				Continue
-			</button>
+      <div className="w-full absolute bottom-10 px-6">
+        <button
+          className="bg-primYellow w-full max-w-md py-3 rounded-full font-bold text-xl text-black"
+          onClick={handleContinue}
+        >
+          Continue
+        </button>
+      </div>
 		</div>
 	);
 }
