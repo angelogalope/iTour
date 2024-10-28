@@ -5,6 +5,7 @@ import Languages from "./pages/Languages";
 import Features from "./pages/Features";
 import "./App.css";
 import Permissions from "./pages/Permissions";
+import Welcome from "./pages/Welcome";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Languages />} />
           <Route path="/features" element={<Features />} />
           <Route path="/permissions" element={<Permissions />} />
+          <Route path="/welcome" element={<Welcome />} />
         </Routes>
       )}
     </Router>
