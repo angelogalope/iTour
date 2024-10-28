@@ -14,7 +14,7 @@ export default function Permissions() {
 		navigate("/features");
 	};
 
-  const handleNext = () => {
+  const handleContinue = () => {
     navigate("/welcome");
   }
 
@@ -68,7 +68,7 @@ export default function Permissions() {
 			</div>
 			<button
 				className="bg-primYellow w-full max-w-md py-3 rounded-full font-bold text-xl text-black"
-				onClick={handleNext}
+				onClick={handleContinue}
 			>
 				Continue
 			</button>
