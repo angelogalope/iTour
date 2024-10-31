@@ -19,7 +19,7 @@ function App() {
 
   return (
     <Router>
-      {loading ? (
+      {/* {loading ? (
         <Preloader />
       ) : (
         <Routes>
@@ -29,7 +29,11 @@ function App() {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/mapscreen" element={<MapScreen />} />
         </Routes>
-      )}
+      )} */}
+      <Routes>
+          <Route path="/mapscreen" element={<MapScreen />} />
+      </Routes>
+
     </Router>
   );
 }
