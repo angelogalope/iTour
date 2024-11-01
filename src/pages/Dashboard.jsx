@@ -3,6 +3,7 @@ import { CgMenuRight } from "react-icons/cg";
 import { PiMagnifyingGlassBold } from "react-icons/pi";
 import Carousel from './components/Carousel';
 import { useNavigate } from 'react-router';
+import NavBar from './components/NavBar';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="bg-primWhite h-screen w-full flex items-center justify-center pb-6">
+    <div className="bg-primWhite h-screen w-full flex items-center justify-center pb-18 overflow-y-hidden">
       <div className="flex flex-col w-full">
 
         <div className="flex flex-row w-full items-center justify-between mb-8 px-6">
@@ -40,6 +41,10 @@ export default function Dashboard() {
         <div className="flex flex-col gap-4">
           <h1 className="px-6 text-2xl font-semibold">Recommended</h1>
           <Carousel />
+        </div>
+
+        <div className="fixed bottom-0 w-full bg-white rounded-t-[40px] shadow-black shadow-2xl">
+          <NavBar />
         </div>
 
       </div>
