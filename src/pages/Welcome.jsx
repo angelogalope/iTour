@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router';
 export default function Welcome() {
   const navigate = useNavigate();
 
-  const handleBtn = () => {
-    navigate("/mapscreen");
+  const handleBtn = () => { 
+    navigate("/dashboard");
   };
 
   return (

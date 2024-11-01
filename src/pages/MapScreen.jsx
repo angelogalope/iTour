@@ -5,6 +5,7 @@ import { faUser, faEye, faEyeSlash, faBook, faSearch, faEllipsisH, faArrowLeft} 
 import nipplejs from 'nipplejs';
 import * as THREE from 'three';
 import "./components/restrict";
+import { useNavigate } from 'react-router';
 
 function MapScreen() {
   const [isAerialView, setIsAerialView] = useState(false);
@@ -63,11 +64,17 @@ function MapScreen() {
     }
   }, [isAerialView]);
 
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate('/dashboard');
+  }
+
   return (
     <div className="h-screen flex flex-col items-center justify-center relative">
-      <div className="absolute top-14 left-8 p-4 rounded-full shadow-2xl drop-shadow-2xl flex bg-white z-50">
+      <button onClick={handleBack} className="absolute top-14 left-8 p-4 rounded-full shadow-2xl drop-shadow-2xl flex bg-white z-50">
         <FontAwesomeIcon icon={faArrowLeft} />
-      </div>
+      </button>
       <a-scene>
         <a-entity>
           <a-camera
