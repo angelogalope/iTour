@@ -8,6 +8,7 @@ import Permissions from "./pages/Permissions";
 import Welcome from "./pages/Welcome";
 import MapScreen from "./pages/MapScreen";
 import Dashboard from "./pages/Dashboard";
+import Favorites from "./pages/Favorites";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <Router>
-      {loading ? (
+      {/* {loading ? (
         <Preloader />
       ) : (
         <Routes>
@@ -31,10 +32,12 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/mapscreen" element={<MapScreen />} />
         </Routes>
-      )}
-      {/* <Routes>
+      )} */}
+      <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
-      </Routes> */}
+          <Route path="/mapscreen" element={<MapScreen />} />
+          <Route path="/favorites" element={<Favorites />} />
+      </Routes>
 
     </Router>
   );
