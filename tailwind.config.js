@@ -8,7 +8,8 @@ module.exports = {
     extend: {
       colors: {
         primGreen: '#013300',
-        primYellow: '#F9DE06'
+        primYellow: '#F9DE06',
+        primWhite: '#F3F3F3'
       }
     },
   },
