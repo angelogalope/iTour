@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'aframe';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEye, faEyeSlash, faBook, faSearch, faEllipsisH, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEye, faBook, faSearch, faEllipsisH, faArrowLeft, } from '@fortawesome/free-solid-svg-icons';
+import { IoInformation, IoEyeOutline,  } from "react-icons/io5";
+import { GiOpenGate } from "react-icons/gi";
+import { BsPersonWalking } from "react-icons/bs";
 import nipplejs from 'nipplejs';
 import * as THREE from 'three';
 import "./components/restrict";
 import { useNavigate } from 'react-router';
+import SearchMenu from './components/SearchMenu';
 
 function MapScreen() {
   const [isAerialView, setIsAerialView] = useState(false);
@@ -20,8 +24,8 @@ function MapScreen() {
       const joystick = nipplejs.create({
         zone: joystickRef.current,
         mode: 'static',
-        position: { left: '40%', bottom: '60%' },
-        color: 'black'
+        position: { left: '40%', bottom: '90%' },
+        color: 'white'
       });
 
       // Define dome radius and center coordinates
@@ -63,18 +67,36 @@ function MapScreen() {
       });
     }
   }, [isAerialView]);
-
+  
   const navigate = useNavigate();
-
+  
   const handleBack = () => {
-    navigate('/dashboard');
+    navigate(-1);
   }
+  
+  const handleGate = () => {
+    if (cameraRigRef.current) {
+      const camera = cameraRigRef.current.object3D;
+      camera.position.set(0, 1.6, 5); // Replace with your spawn point coordinates
+    }
+  };
 
   return (
     <div className="h-screen flex flex-col items-center justify-center relative">
-      <button onClick={handleBack} className="absolute top-14 left-8 p-4 rounded-full shadow-2xl drop-shadow-2xl flex bg-white z-50">
+      <button onClick={handleBack} className="absolute top-14 left-3 p-4 rounded-full shadow-slate-800 shadow-md flex bg-white z-50">
         <FontAwesomeIcon icon={faArrowLeft} />
       </button>
+      <div className="absolute flex flex-col top-14 right-3 shadow-slate-800 shadow-lg z-50 rounded-xl">
+        <button onClick={handleBack} className="bg-white p-4 rounded-t-xl border-b text-lg">
+          <IoInformation />
+        </button>
+        <button onClick={toggleView} className="bg-white p-4 border-b text-lg">
+          {isAerialView ?  <BsPersonWalking /> : <IoEyeOutline />}
+        </button>
+        <button onClick={handleGate} className="bg-white p-4 rounded-b-xl text-lg">
+          <GiOpenGate />
+        </button>
+      </div>
       <a-scene>
         <a-entity>
           <a-camera
@@ -127,31 +149,7 @@ function MapScreen() {
       </a-scene>
 
       {/* Bottom Navigation Bar */}
-      <div className="absolute bottom-0 w-full bg-white pb-16 py-8 flex justify-around items-center border-t border-gray-200">
-        <div className="flex flex-col items-center">
-        <button onClick={toggleView} 
-            className="rounded-full shadow-2xl z-50">
-            <FontAwesomeIcon icon={isAerialView ? faUser : faEye} size="lg" />
-          </button>
-          <span className="text-xs">View</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <FontAwesomeIcon icon={faBook} size="lg" />
-          <span className="text-xs">Gate</span>
-        </div>
-        <div className="flex flex-col items-center">
-          {/* <FontAwesomeIcon icon={faEyeSlash} size="lg" /> */}
-          {/* <span className="text-xs">Move</span> */}
-        </div>
-        <div className="flex flex-col items-center">
-          <FontAwesomeIcon icon={faSearch} size="lg" />
-          <span className="text-xs">Search</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <FontAwesomeIcon icon={faEllipsisH} size="lg" />
-          <span className="text-xs">More</span>
-        </div>
-      </div>
+      <SearchMenu />
     </div>
   );
 }
