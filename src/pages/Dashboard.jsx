@@ -28,12 +28,14 @@ export default function Dashboard() {
             Find Your Destination
           </h1>
           <div className="flex flex-col gap-4">
-            <div className="flex p-4 items-center justify-between text-gray-500 font-semibold bg-white rounded-lg shadow-slate-400 shadow-md">
-              Search
+            <div className="flex p-4 items-center text-gray-500 font-semibold bg-white rounded-lg shadow-slate-400 shadow-md">
+              <input type="text" placeholder="Search" className="w-full text-lg outline-none bg-transparent text-black font-normal" />
               <PiMagnifyingGlassBold size={22} />
             </div>
             <button onClick={handleVMap} className="flex bg-[url('/src/assets/map-btn.png')] bg-cover p-4 items-center justify-between rounded-lg shadow-slate-400 shadow-md text-white text-lg font-black">
-              Go to CSU Virtual Map
+              <p className="">
+                Go to CSU Virtual Map
+              </p>
             </button>
           </div>
         </div>

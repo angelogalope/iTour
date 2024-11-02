@@ -83,10 +83,10 @@ function MapScreen() {
 
   return (
     <div className="h-screen flex flex-col items-center justify-center relative">
-      <button onClick={handleBack} className="absolute top-14 left-3 p-4 rounded-full shadow-slate-800 shadow-md flex bg-white z-50">
+      <button onClick={handleBack} className="absolute top-14 left-6 p-4 rounded-full shadow-slate-800 shadow-md flex bg-white z-50">
         <FontAwesomeIcon icon={faArrowLeft} />
       </button>
-      <div className="absolute flex flex-col top-14 right-3 shadow-slate-800 shadow-lg z-50 rounded-xl">
+      <div className="absolute flex flex-col top-14 right-6 shadow-slate-800 shadow-lg z-50 rounded-xl">
         <button onClick={handleBack} className="bg-white p-4 rounded-t-xl border-b text-lg">
           <IoInformation />
         </button>

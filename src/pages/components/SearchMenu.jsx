@@ -44,11 +44,11 @@ export default function SearchMenu() {
       <div className="flex flex-col items-center gap-2 p-4">
         <hr className="border-4 rounded-full w-28 border-gray-300 cursor-pointer" />
         <div className="flex items-center w-full bg-gray-200 rounded-xl p-4 mb-6">
-          <FaMagnifyingGlass className="text-gray-400 mr-2" />
+          <FaMagnifyingGlass className="text-gray-400 mr-2" size={20} />
           <input
             type="text"
             placeholder="Search"
-            className="flex-grow bg-transparent text-black placeholder-gray-400 outline-none"
+            className="flex-grow bg-transparent text-lg text-black placeholder-gray-400 outline-none"
             onFocus={() => {
               if (!isExpanded) toggleExpand(); // Expand only if collapsed
             }}
