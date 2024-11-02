@@ -14,9 +14,41 @@ export default function Permissions() {
 		navigate("/features");
 	};
 
-  const handleContinue = () => {
-    navigate("/welcome");
-  }
+	const handleContinue = () => {
+		navigate("/welcome");
+	};
+
+	// Request notification permission
+	const handleNotificationPermission = async () => {
+		const permission = await Notification.requestPermission();
+		if (permission === "granted") {
+			alert("Notification permission granted!");
+		} else {
+			alert("Notification permission denied.");
+		}
+	};
+
+	// Request camera permission
+	const handleCameraPermission = async () => {
+		try {
+			await navigator.mediaDevices.getUserMedia({ video: true });
+			alert("Camera access granted!");
+		} catch (error) {
+			alert("Camera access denied.");
+		}
+	};
+
+	// Request location permission
+	const handleLocationPermission = () => {
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => alert("Location access granted!"),
+				(error) => alert("Location access denied.")
+			);
+		} else {
+			alert("Geolocation not supported by this browser.");
+		}
+	};
 
 	return (
 		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2 p-6 relative pb-28">
@@ -37,43 +69,43 @@ export default function Permissions() {
 					</p>
 				</div>
 				<div className="flex flex-col gap-4">
-					<div className="flex items-center gap-5 bg-white bg-opacity-25 p-4 rounded-xl">
+					<button onClick={handleNotificationPermission} className="flex items-center gap-5 bg-white bg-opacity-25 p-4 rounded-xl">
 						<div className="text-white">
 							<IoNotificationsOutline size={30} />
 						</div>
-						<div className="text-white">
+						<div className="text-white flex flex-col items-start">
 							<h1 className="font-semibold text-lg">Notification</h1>
-							<p>Enables iTour to send timely updates and real-time alerts</p>
+							<p className="text-start">Enables iTour to send timely updates and real-time alerts</p>
 						</div>
-					</div>
-					<div className="flex items-center gap-5 bg-white bg-opacity-25 p-4 rounded-xl">
+					</button>
+					<button onClick={handleCameraPermission} className="flex items-center gap-5 bg-white bg-opacity-25 p-4 rounded-xl">
 						<div className="text-white">
 							<IoCameraOutline size={30} />
 						</div>
-						<div className="text-white">
+						<div className="text-white flex flex-col items-start">
 							<h1 className="font-semibold text-lg">Camera</h1>
-							<p>Enables iTour to send timely updates and real-time alerts</p>
+							<p className="text-start">Enables iTour to access your camera for AR navigation</p>
 						</div>
-					</div>
-					<div className="flex items-center gap-5 bg-white bg-opacity-25 p-4 rounded-xl">
+					</button>
+					<button onClick={handleLocationPermission} className="flex items-center gap-5 bg-white bg-opacity-25 p-4 rounded-xl">
 						<div className="text-white">
 							<IoLocationOutline size={30} />
 						</div>
-						<div className="text-white">
+						<div className="text-white flex flex-col items-start">
 							<h1 className="font-semibold text-lg">Location</h1>
-							<p>Enables iTour to send timely updates and real-time alerts</p>
+							<p className="text-start">Enables iTour to provide accurate navigation based on your location</p>
 						</div>
-					</div>
+					</button>
 				</div>
 			</div>
-      <div className="w-full absolute bottom-10 px-6">
-        <button
-          className="bg-primYellow w-full max-w-md py-3 rounded-full font-bold text-xl text-black"
-          onClick={handleContinue}
-        >
-          Continue
-        </button>
-      </div>
+			<div className="w-full absolute bottom-10 px-6">
+				<button
+					className="bg-primYellow w-full max-w-md py-3 rounded-full font-bold text-xl text-black"
+					onClick={handleContinue}
+				>
+					Continue
+				</button>
+			</div>
 		</div>
 	);
 }
