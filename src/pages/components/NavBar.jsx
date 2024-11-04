@@ -37,9 +37,9 @@ export default function NavBar() {
     navigate('/mapscreen');
   };
 
-  const handleFavBtn = () => {
-    navigate('/favorites');
-  };
+  // const handleFavBtn = () => {
+  //   navigate('/favorites');
+  // };
 
   const handleExitBtn = () => {
     setShowExitConfirmation(true);
@@ -69,12 +69,12 @@ export default function NavBar() {
       >
         <IoMapOutline size={28} />
       </button>
-      <button
+      {/* <button
         onClick={handleFavBtn}
         className={`p-4 ${activeButton === 'favorites' ? 'rounded-2xl shadow-slate-400 shadow-md bg-secGreen text-white' : ''}`}
       >
         <IoHeartOutline size={28} />
-      </button>
+      </button> */}
       <button onClick={handleExitBtn} className="p-4">
         <IoExitOutline size={28} />
       </button>
