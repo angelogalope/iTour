@@ -21,7 +21,7 @@ function App() {
 
   return (
     <Router>
-      {loading ? (
+      {/* {loading ? (
         <Preloader />
       ) : (
         <Routes>
@@ -33,12 +33,12 @@ function App() {
           <Route path="/mapscreen" element={<MapScreen />} />
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
-          )}
-      {/* <Routes>
+          )} */}
+      <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/mapscreen" element={<MapScreen />} />
           <Route path="/favorites" element={<Favorites />} />
-      </Routes> */}
+      </Routes>
 
     </Router>
   );
