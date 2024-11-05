@@ -56,16 +56,16 @@ export default function NavBar() {
   };
 
   return (
-    <div className="flex justify-between items-center mb-2 p-6">
+    <div className="flex justify-between items-center mb-2 px-16">
       <button
         onClick={handleHomeBtn}
-        className={`p-4 ${activeButton === 'home' ? 'rounded-2xl shadow-slate-400 shadow-md bg-secGreen text-white' : ''}`}
+        className={`p-4 ${activeButton === 'home' ? 'text-secGreen border-b-2 border-secGreen' : ''}`}
       >
         <IoHomeOutline size={28} />
       </button>
       <button
         onClick={handleMapBtn}
-        className={`p-4 ${activeButton === 'map' ? 'rounded-2xl shadow-slate-400 shadow-md bg-secGreen text-white' : ''}`}
+        className="relative text-white bottom-10 flex items-center justify-center w-20 h-20 bg-secGreen rounded-full shadow-slate-400 shadow-lg"
       >
         <IoMapOutline size={28} />
       </button>
@@ -98,3 +98,34 @@ export default function NavBar() {
     </div>
   );
 }
+
+// import React from 'react';
+// import { IoHomeOutline, IoMapOutline, IoHeartOutline, IoExitOutline } from "react-icons/io5";
+// import { useNavigate, useLocation } from 'react-router';
+
+// const NavBar = () => {
+//   const navigate = useNavigate();
+
+//   const handleMapBtn = navigate('/mapscreen');
+
+//   return (
+//     <div className="fixed bottom-0 left-0 right-0 flex justify-between items-center bg-white py-2 px-20 rounded-t-[40px] shadow-black shadow-2xl">
+//       {/* Home Icon */}
+//       <div className="flex flex-col items-center text-secGreen">
+//         <IoHomeOutline size={28} />
+//       </div>
+
+//       {/* Center Icon (highlighted) */}
+//       <button onClick={handleMapBtn} className="absolute bottom-10 flex items-center justify-center w-20 h-20 bg-secGreen rounded-full shadow-black shadow-lg">
+//         <IoMapOutline size={36} className="text-white" />
+//       </button>
+
+//       {/* Exit Icon */}
+//       <div className="flex flex-col items-center">
+//         <IoExitOutline size={28} />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default NavBar;
