@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CgMenuRight } from "react-icons/cg";
 import { PiMagnifyingGlassBold } from "react-icons/pi";
 import Carousel from './components/Carousel';
 import { useNavigate } from 'react-router';
 import NavBar from './components/NavBar';
+import SideBar from './components/SideBar';
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+
+  const handleSideBar = () => {
+    setIsSideBarOpen(!isSideBarOpen);
+  }
 
   const handleVMap = () => {
     navigate('/mapscreen');
@@ -18,9 +24,10 @@ export default function Dashboard() {
 
         <div className="flex flex-row w-full items-center justify-between mb-8 px-6">
           <h1 className="text-2xl font-semibold">Hello there!</h1>
-          <div className="flex items-center rounded-2xl p-4 shadow-slate-400 shadow-md">
+          <button onClick={handleSideBar} className="flex items-center rounded-2xl p-4 shadow-slate-400 shadow-md">
             <CgMenuRight size={24} />
-          </div>
+          </button>
+          <SideBar isOpen={isSideBarOpen} onClose={handleSideBar} />
         </div>
 
         <div className="flex flex-col gap-8 mb-8  px-6">
