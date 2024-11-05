@@ -13,7 +13,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="bg-primWhite h-screen w-full flex items-center justify-center pb-18 overflow-y-hidden">
+    <div className="bg-primWhite h-screen w-full flex items-center justify-center pb-28 overflow-y-hidden overscroll-y-none">
       <div className="flex flex-col w-full">
 
         <div className="flex flex-row w-full items-center justify-between mb-8 px-6">

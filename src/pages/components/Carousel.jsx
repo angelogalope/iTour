@@ -7,34 +7,33 @@ const Carousel = () => {
 		{
 			title: "CSU Hiraya Hall",
 			subtitle: "College of Computing and Information Sciences",
-			image: "/src/assets/admin.png", // Replace with your actual image URL
+			image: "/src/assets/admin.png",
 		},
 		{
 			title: "CSU Hiraya Hall",
 			subtitle: "College of Computing and Information Sciences",
-			image: "/src/assets/admin.png", // Replace with your actual image URL
+			image: "/src/assets/Hiraya.png",
 		},
 		{
 			title: "CSU Hiraya Hall",
 			subtitle: "College of Computing and Information Sciences",
-			image: "/src/assets/admin.png", // Replace with your actual image URL
+			image: "/src/assets/admin.png",
 		},
 		{
 			title: "CSU Hiraya Hall",
 			subtitle: "College of Computing and Information Sciences",
-			image: "/src/assets/admin.png", // Replace with your actual image URL
+			image: "/src/assets/Hiraya.png",
 		},
 		{
 			title: "CSU Hiraya Hall",
 			subtitle: "College of Computing and Information Sciences",
-			image: "/src/assets/admin.png", // Replace with your actual image URL
+			image: "/src/assets/admin.png",
 		},
 		{
 			title: "CSU Hiraya Hall",
 			subtitle: "College of Computing and Information Sciences",
-			image: "/src/assets/admin.png", // Replace with your actual image URL
+			image: "/src/assets/Hiraya.png",
 		},
-		// Add more items as needed
 	];
 
 	const extendedItems = [items[items.length - 1], ...items, items[0]]; // Clone first and last items
@@ -70,8 +69,10 @@ const Carousel = () => {
 			<div
 				className="flex transition-transform duration-300 ease-in-out"
 				style={{
-      transform: `translateX(calc(50% - ${262 / 2}px - ${(currentIndex - 1) * 262}px))`,
-    }} // Center the current card
+					transform: `translateX(calc(50% - ${262 / 2}px - ${
+						currentIndex * 262
+					}px))`, // Center the current card properly
+				}}
 			>
 				{extendedItems.map((item, index) => (
 					<div
