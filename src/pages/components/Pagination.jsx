@@ -17,7 +17,7 @@ const Pagination = ({ data, scrollX, index }) => {
   }, [index, data]);
 
   return (
-    <div className="flex w-full justify-center">
+    <div className="flex w-full justify-center" style={{ padding: '0 10px' }}>
       {data.map((_, idx) => (
         <div
           key={idx}

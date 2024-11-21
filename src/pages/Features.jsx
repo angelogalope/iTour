@@ -60,7 +60,7 @@ const Features = () => {
 	}, [handleScroll]);
 
 	return (
-		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2 py-6">
+		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2 py-6 px-4">
 			{/* Slider Container */}
 			<div
 				ref={sliderRef}
@@ -106,6 +106,7 @@ const Features = () => {
 				<button
 					className="bg-primYellow w-full max-w-md py-3 rounded-full font-bold text-xl text-black"
 					onClick={handleNext}
+					style={{ width: '90%' }}
 				>
 					{currentIndex < data.length - 1 ? "Next" : "Continue"}
 				</button>
