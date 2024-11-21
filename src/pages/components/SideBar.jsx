@@ -33,6 +33,7 @@ const SideBar = ({ isOpen, onClose }) => {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } bg-white`}
         aria-labelledby="drawer-navigation-label"
+        style={{ maxWidth: '80vw', height: '100vh' }}
       >
         <h5 id="drawer-navigation-label" className="text-base font-semibold text-gray-400 uppercase">
           Menu
@@ -61,10 +62,10 @@ const SideBar = ({ isOpen, onClose }) => {
         <div className="py-4 overflow-y-auto">
           <ul className="space-y-2 font-medium">
             <li>
-              <a href="/dashboard" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+              <button onClick={'/dashboard'} className="flex w-full items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                 {/* Icon */}
                 <span className="ms-3">Home</span>
-              </a>
+              </button>
             </li>
             <li>
               <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
