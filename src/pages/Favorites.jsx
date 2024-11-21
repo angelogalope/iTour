@@ -22,10 +22,10 @@ export default function Favorites() {
 					<FontAwesomeIcon icon={faArrowLeft} />
 				</button>
 				<div className="flex justify-center">
-					<h1 className="font-semibold text-2xl items-center">Saved</h1>
+					<h1 className="font-semibold text-2xl items-center">Upcoming Events</h1>
 				</div>
 				<div className="flex flex-col items-start gap-4">
-					<h1 className="text-3xl font-bold px-6">Your Favorite</h1>
+					<h1 className="text-3xl font-bold px-6">Events</h1>
 
 					{/* Scrollable container for cards */}
 					<div className="flex flex-col gap-3 h-[70vh] px-6 overflow-y-auto no-scrollbar">

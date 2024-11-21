@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IoHomeOutline, IoMapOutline, IoHeartOutline, IoExitOutline } from "react-icons/io5";
+import { MdOutlineEvent } from "react-icons/md";
 import { useNavigate, useLocation } from 'react-router';
 
 // Check if Capacitor is available
@@ -24,6 +25,9 @@ export default function NavBar() {
       case '/favorites':
         setActiveButton('favorites');
         break;
+      case '/eventlist':
+        setActiveButton('eventlist');
+        break;
       default:
         setActiveButton('');
     }
@@ -37,9 +41,13 @@ export default function NavBar() {
     navigate('/mapscreen');
   };
 
-  // const handleFavBtn = () => {
-  //   navigate('/favorites');
-  // };
+  const handleFavBtn = () => {
+    navigate('/favorites');
+  };
+  
+  const handleEventBtn = () => {
+    navigate('/eventlist');
+  };
 
   const handleExitBtn = () => {
     setShowExitConfirmation(true);
@@ -56,7 +64,7 @@ export default function NavBar() {
   };
 
   return (
-    <div className="flex justify-between items-center mb-2 px-16">
+    <div className="flex justify-between items-center mb-2 px-16 md:px-20">
       <button
         onClick={handleHomeBtn}
         className={`p-4 ${activeButton === 'home' ? 'text-secGreen border-b-2 border-secGreen' : ''}`}
@@ -65,7 +73,7 @@ export default function NavBar() {
       </button>
       <button
         onClick={handleMapBtn}
-        className="relative text-white bottom-10 flex items-center justify-center w-20 h-20 bg-secGreen rounded-full shadow-slate-400 shadow-lg"
+        className="relative text-white bottom-10 flex items-center justify-center w-16 h-16 bg-secGreen rounded-full shadow-slate-400 shadow-lg"
       >
         <IoMapOutline size={28} />
       </button>
@@ -75,8 +83,8 @@ export default function NavBar() {
       >
         <IoHeartOutline size={28} />
       </button> */}
-      <button onClick={handleExitBtn} className="p-4">
-        <IoExitOutline size={28} />
+      <button onClick={handleEventBtn} className={`p-4 ${activeButton === 'eventlist' ? 'text-secGreen border-b-2 border-secGreen' : ''}`}>
+        <MdOutlineEvent size={28} />
       </button>
 
       {/* Confirmation Dialog */}
