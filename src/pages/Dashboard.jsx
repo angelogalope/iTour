@@ -51,7 +51,7 @@ export default function Dashboard() {
             <Carousel />
           </div>
 
-          <div className="flex flex-col gap-4 pb-10">
+          <div className="flex flex-col gap-4 pb-14 mt-4">
             <h1 className="px-6 text-2xl font-semibold">Upcoming Events</h1>
             <EventCarousel />
           </div>
