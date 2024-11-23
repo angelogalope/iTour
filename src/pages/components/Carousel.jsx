@@ -3,6 +3,12 @@ import Slider from "react-slick"; // Import react-slick
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css"; 
 import SkeletonLoader from './SkeletonLoader'; // Import the SkeletonLoader
+import { createClient } from '@supabase/supabase-js'; // Import Supabase client
+
+// Initialize Supabase client
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL; // Replace with your Supabase URL
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY; // Replace with your Supabase anon key
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Carousel = () => {
 	const [loading, setLoading] = useState(true);
@@ -13,42 +19,22 @@ const Carousel = () => {
 		// Simulate data fetching
 		const fetchData = async () => {
 			setLoading(true);
-			// Simulate a delay
-			setTimeout(() => {
-				setItems([
-					{
-						title: "CSU Hiraya Hall",
-						subtitle: "College of Computing and Information Sciences",
-						image: "/src/assets/admin.png",
-					},
-					{
-						title: "CSU Hiraya Hall",
-						subtitle: "College of Computing and Information Sciences",
-						image: "/src/assets/Hiraya.png",
-					},
-					{
-						title: "CSU Hiraya Hall",
-						subtitle: "College of Computing and Information Sciences",
-						image: "/src/assets/admin.png",
-					},
-					{
-						title: "CSU Hiraya Hall",
-						subtitle: "College of Computing and Information Sciences",
-						image: "/src/assets/Hiraya.png",
-					},
-					{
-						title: "CSU Hiraya Hall",
-						subtitle: "College of Computing and Information Sciences",
-						image: "/src/assets/admin.png",
-					},
-					{
-						title: "CSU Hiraya Hall",
-						subtitle: "College of Computing and Information Sciences",
-						image: "/src/assets/Hiraya.png",
-					},
-				]);
+			console.log("Fetching data from Supabase...");
+
+			// Fetch data from Supabase
+			const { data, error } = await supabase
+				.from('buildings') // Replace with your table name
+				.select('*');
+
+			if (error) {
+				console.error('Error fetching data:', error);
 				setLoading(false);
-			}, 2000); // Simulate a 2-second loading time
+				return;
+			}
+
+			console.log("Fetched data:", data); // Log the fetched data
+			setItems(data); // Set fetched data to items
+			setLoading(false);
 		};
 
 		fetchData();
@@ -102,8 +88,8 @@ const Carousel = () => {
 	return (
 		<div className="w-full">
 			<Slider {...settings}>
-				{items.map((item, index) => (
-					<div key={index} className="flex justify-center px-6">
+				{items.map((item) => (
+					<div key={item.id} className="flex justify-center px-6">
 						<div
 							className="relative p-4 rounded-3xl shadow-lg bg-cover bg-center h-64 flex flex-col justify-end"
 							style={{ backgroundImage: `url(${item.image})` }}
@@ -113,9 +99,9 @@ const Carousel = () => {
 
 							{/* Content */}
 							<div className="relative p-2 text-white z-10">
-								<h3 className="text-lg font-semibold">{item.title}</h3>
-								<div className="flex flex-row gap-2">
-									<p className="text-sm">{item.subtitle}</p>
+								<h3 className="text-lg font-semibold">{item.building_id} {item.building_name}</h3>
+								<div className="flex flex-row gap-2 justify-between">
+									<p className="text-sm">{item.formal_name}</p>
 									<button className="text-black bottom-4 right-4 px-3 py-1 text-xs bg-white rounded-lg shadow z-10">
 										VR View
 									</button>

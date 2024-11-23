@@ -81,31 +81,36 @@ const EventList = () => {
     // }
 
     return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Upcoming Events</h1>
-            <ul className="space-y-4">
-                {events.map(event => (
-                    <div key={event.id} className="bg-white rounded-lg shadow-md p-4 flex items-center">
-                        <img
-                            src={event.thumbnail}
-                            alt={event.title}
-                            className="w-24 h-24 rounded-lg object-cover"
-                        />
-                        <div className="flex-1 ml-4">
-                            <h2 className="text-lg font-semibold">{event.title}</h2>
-                            <p className="text-sm text-gray-500">{event.description}</p>
-                            <p className="text-xs text-gray-400">{event.created_at}</p>
+        <div className="min-h-screen flex flex-col">
+            <div className="p-6">
+                <h1 className="text-2xl font-bold mb-4">Upcoming Events</h1>
+                <ul className="space-y-4">
+                    {events.map(event => (
+                        <div key={event.id} className="bg-white rounded-lg shadow-md p-4 flex items-center">
+                            <img
+                                src={event.thumbnail}
+                                alt={event.title}
+                                className="w-24 h-24 rounded-lg object-cover"
+                            />
+                            <div className="flex-1 ml-4">
+                                <h2 className="text-lg font-semibold">{event.title}</h2>
+                                <p className="text-sm text-gray-500">{event.description}</p>
+                                <p className="text-xs text-gray-400">{event.created_at}</p>
+                            </div>
+                            <div className="ml-auto flex flex-col items-end">
+                              <button className="mt-2 px-3 py-1 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600">
+                                  AR View
+                              </button>
+                            </div>
                         </div>
-                        <div className="ml-auto flex flex-col items-end">
-                          <button className="mt-2 px-3 py-1 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600">
-                              AR View
-                          </button>
-                        </div>
-                    </div>
-                ))}
-            </ul>
-            <div className="absolute left-0 right-0 bottom-0 w-full bg-white rounded-t-[40px] shadow-black shadow-2xl">
-              <NavBar />
+                    ))}
+                </ul>
+            </div>
+            <div className="flex-grow"></div>
+            <div className="fixed bottom-6 w-full flex justify-center">
+              <div className="bg-white rounded-full shadow-black shadow-2xl w-full max-w-[90%]">
+                <NavBar />
+              </div>
             </div>
         </div>
     );
