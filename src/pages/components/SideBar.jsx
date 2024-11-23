@@ -29,7 +29,7 @@ const SideBar = ({ isOpen, onClose }) => {
       {/* Drawer */}
       <div
         id="drawer-navigation"
-        className={`fixed top-0 right-0 z-40 w-64 h-screen p-4 pt-16 overflow-y-auto transition-transform ${
+        className={`fixed top-0 right-0 z-50 w-64 h-screen p-4 pt-16 overflow-y-auto transition-transform ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } bg-white`}
         aria-labelledby="drawer-navigation-label"

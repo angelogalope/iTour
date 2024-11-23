@@ -64,7 +64,7 @@ export default function NavBar() {
   };
 
   return (
-    <div className="flex justify-between items-center mb-2 px-16 md:px-20">
+    <div className="flex justify-between items-center mb-2 px-14 md:px-16">
       <button
         onClick={handleHomeBtn}
         className={`p-4 ${activeButton === 'home' ? 'text-secGreen border-b-2 border-secGreen' : ''}`}
@@ -73,7 +73,7 @@ export default function NavBar() {
       </button>
       <button
         onClick={handleMapBtn}
-        className="relative text-white bottom-10 flex items-center justify-center w-16 h-16 bg-secGreen rounded-full shadow-slate-400 shadow-lg"
+        className="relative text-white bottom-8 flex items-center justify-center w-16 h-16 bg-secGreen rounded-full"
       >
         <IoMapOutline size={28} />
       </button>
