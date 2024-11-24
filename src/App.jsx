@@ -10,6 +10,7 @@ import MapScreen from "./pages/MapScreen";
 import Dashboard from "./pages/Dashboard";
 import Favorites from "./pages/Favorites";
 import EventList from "./pages/EventList";
+import Settings from "./pages/Settings";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -34,6 +35,7 @@ function App() {
           <Route path="/mapscreen" element={<MapScreen />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/eventlist" element={<EventList />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
           )}
       {/* <Routes>
