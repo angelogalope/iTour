@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { IoExitOutline } from "react-icons/io5";
 
-const SideBar = ({ isOpen, onClose }) => {
+const SideBar = ({ isOpen, onClose, activePage, handleNavigation }) => {
   // Close drawer when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -62,20 +62,23 @@ const SideBar = ({ isOpen, onClose }) => {
         <div className="py-4 overflow-y-auto">
           <ul className="space-y-2 font-medium">
             <li>
-              <button onClick={'/dashboard'} className="flex w-full items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
-                {/* Icon */}
+              <button 
+                onClick={() => { handleNavigation('dashboard'); onClose(); }} 
+                className={`flex w-full items-center p-2 text-gray-900 rounded-lg ${activePage === 'dashboard' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
+              >
                 <span className="ms-3">Home</span>
               </button>
             </li>
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
-                {/* Icon */}
+              <button 
+                onClick={() => { handleNavigation('settings'); onClose(); }} 
+                className={`flex w-full items-center p-2 text-gray-900 rounded-lg ${activePage === 'settings' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
+              >
                 <span className="ms-3">Settings</span>
-              </a>
+              </button>
             </li>
             <li>
               <a href="#" className="absolute bottom-10 flex items-center p-2 text-red-500 rounded-lg hover:bg-gray-100">
-                {/* Icon */}
                 <span className="mx-3">Exit</span>
                 <IoExitOutline />
               </a>
