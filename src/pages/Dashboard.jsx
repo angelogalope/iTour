@@ -10,6 +10,7 @@ import EventCarousel from './components/EventCarousel';
 export default function Dashboard() {
   const navigate = useNavigate();
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const [activePage, setActivePage] = useState('dashboard');
 
   const handleSideBar = () => {
     setIsSideBarOpen(!isSideBarOpen);
@@ -17,6 +18,12 @@ export default function Dashboard() {
 
   const handleVMap = () => {
     navigate('/mapscreen');
+  }
+
+  const handleNavigation = (page) => {
+    setActivePage(page);
+    navigate(`/${page}`);
+    setIsSideBarOpen(false);
   }
 
   return (
@@ -29,7 +36,7 @@ export default function Dashboard() {
             <button onClick={handleSideBar} className="fixed right-6 flex items-center rounded-2xl p-4 z-40 bg-white shadow-gray-500 shadow-md">
               <CgMenuRight size={24} />
             </button>
-            <SideBar isOpen={isSideBarOpen} onClose={handleSideBar} />
+            <SideBar isOpen={isSideBarOpen} onClose={handleSideBar} activePage={activePage} handleNavigation={handleNavigation} />
           </div>
         </div>
 
