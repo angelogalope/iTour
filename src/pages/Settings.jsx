@@ -37,7 +37,7 @@ export default function Settings() {
             <button onClick={handleBack}>
               <IoMdArrowRoundBack size={32} /> 
             </button>
-            <h1 className="text-2xl font-semibold">Settings</h1>
+            <h1 className="text-3xl font-semibold">Settings</h1>
             {/* <button onClick={handleSideBar} className="fixed right-6 flex items-center rounded-2xl p-4 z-40 bg-white shadow-gray-500 shadow-md">
               <CgMenuRight size={24} />
             </button>
@@ -55,12 +55,12 @@ export default function Settings() {
                 </div>
                 <h1 className="text-xl font-semibold">Languages</h1>
               </div>
-              <div className="flex items-center gap-4">
+              <button className="flex items-center gap-4">
                 <p1 className="text-gray-400">English</p1>
                 <button className="bg-gray-300 p-2 rounded-md">
                   <PiGreaterThan className="text-white" />
                 </button>
-              </div>
+              </button>
             </div>
 
             <div className="flex items-center justify-between">
