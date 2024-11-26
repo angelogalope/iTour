@@ -49,43 +49,57 @@ const EventCarousel = () => {
     const [error, setError] = useState(null);
     const [currentSlide, setCurrentSlide] = useState(0);
 
-    useEffect(() => {
-        const fetchEvents = async () => {
-            setLoading(true);
+    const fetchEvents = async () => {
+        setLoading(true);
+        try {
             const { data, error } = await supabase
                 .from('events')
-                .select('*');
+                // .select('*')
+                .select('title, thumbnail, location, event_date, id')
+                .limit(5);
 
             if (error) {
                 console.error('Error fetching events:', error);
                 setError(error.message);
-            } else {
-                const formattedData = data.map(event => ({
-                    ...event,
-                    event_date: new Date(event.event_date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })
-                }));
-                setEvents(formattedData);
-                console.log("Events: ",formattedData);
-            }
-            setLoading(false);
-        };
+                return;
+            } 
 
+            if (!data || data.length === 0) {
+                console.warn('No events found or data is empty.');
+                return;
+            }
+
+            const formattedData = data.map(event => ({
+                ...event,
+                event_date: new Date(event.event_date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                })
+            }));
+
+            setEvents(formattedData);
+        } catch (error) {
+            console.error('Error fetching events:', error);
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchEvents();
     }, []);
 
     const settings = {
       dots: true,
-      infinite: true,
+      infinite: events.length > 1,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplay: true,
+      autoplay: events.length > 1,
       autoplaySpeed: 3000,
-      beforeChange: (current, next) => setCurrentSlide(next), // Update current slide
+      beforeChange: (current, next) => setCurrentSlide(next),
       appendDots: dots => {
         const totalSlides = events.length; // Total number of slides
         const visibleDots = 4; // Change this to 3 if needed
@@ -127,18 +141,26 @@ const EventCarousel = () => {
     return (
         <div className="w-full">
             <Slider {...settings}>
-                {events.map(event => (
-                  <div className='px-6 '>
-                    <div key={event.id} className="relative p-4 border border-gray-200 bg-white rounded-lg shadow-lg">
-                        <img src={event.thumbnail} alt={event.title} className="w-full h-48 object-cover" />
-                        <div className="p-4">
-                            <h3 className="text-lg font-semibold">{event.title}</h3>
-                            <p className="flex items-center gap-2 text-sm text-gray-500"><FaMapMarkerAlt className="text-blue-600" /> {event.location}</p>
-                            <p className="flex items-center gap-2 text-sm text-gray-500"><FaCalendarAlt className="text-red-600"/>{event.event_date}</p>
+                {events.length > 0 ? (
+                    events.map(event => (
+                      <div className='px-6 '>
+                        <div key={event.id} className="relative p-4 border border-gray-200 bg-white rounded-lg shadow-lg">
+                            <img src={event.thumbnail} alt={event.title} className="w-full h-48 object-cover" />
+                            <div className="p-4">
+                                <h3 className="text-lg font-semibold">{event.title}</h3>
+                                <p className="flex items-center gap-2 text-sm text-gray-500"><FaMapMarkerAlt className="text-blue-600" /> {event.location}</p>
+                                <p className="flex items-center gap-2 text-sm text-gray-500"><FaCalendarAlt className="text-red-600"/>{event.event_date}</p>
+                            </div>
+                        </div>
+                      </div>
+                    ))
+                ) : (
+                    <div className='px-6'>
+                        <div className="relative p-4 border border-gray-200 bg-white rounded-lg shadow-lg">
+                            <SkeletonLoader />
                         </div>
                     </div>
-                  </div>
-                ))}
+                )}
             </Slider>
         </div>
     );
