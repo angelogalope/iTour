@@ -24,7 +24,8 @@ const Carousel = () => {
 			// Fetch data from Supabase
 			const { data, error } = await supabase
 				.from('buildings') // Replace with your table name
-				.select('*');
+				.select('*')
+				.limit(5);
 
 			if (error) {
 				console.error('Error fetching data:', error);
@@ -42,11 +43,11 @@ const Carousel = () => {
 
 	const settings = {
 		dots: true,
-		infinite: true,
+		infinite: items.length > 1,
 		speed: 500,
 		slidesToShow: 1,
 		slidesToScroll: 1,
-		autoplay: true,
+		autoplay: items.length > 1,
 		autoplaySpeed: 3000,
 		beforeChange: (current, next) => setCurrentSlide(next), // Update current slide
 		appendDots: dots => {
@@ -88,29 +89,34 @@ const Carousel = () => {
 	return (
 		<div className="w-full">
 			<Slider {...settings}>
-				{items.map((item) => (
-					<div key={item.id} className="flex justify-center px-6">
-						<div
-							className="relative p-4 rounded-3xl shadow-lg bg-cover bg-center h-64 flex flex-col justify-end"
-							style={{ backgroundImage: `url(${item.image})` }}
+				{items.length > 0 ? ( // Check if there are items
+					items.map((item) => (
+						<div key={item.id} className="flex justify-center px-6">
+							<div
+								className="relative p-4 rounded-3xl shadow-lg bg-cover bg-center h-64 flex flex-col justify-end"
+								style={{ backgroundImage: `url(${item.image})` }}
 							>
-							{/* Gradient Overlay */}
-							<div className="absolute inset-0 bg-gradient-to-t from-primGreen to-transparent rounded-3xl"></div>
+								{/* Gradient Overlay */}
+								<div className="absolute inset-0 bg-gradient-to-t from-primGreen to-transparent rounded-3xl"></div>
 
-							{/* Content */}
-							<div className="relative p-2 text-white z-10">
-								<h3 className="text-lg font-semibold">{item.building_id} {item.building_name}</h3>
-								<div className="flex flex-row gap-2 justify-between">
-									<p className="text-sm">{item.formal_name}</p>
-									<button className="text-black bottom-4 right-4 px-3 py-1 text-xs bg-white rounded-lg shadow z-10">
-										VR View
-									</button>
+								{/* Content */}
+								<div className="relative p-2 text-white z-10">
+									<h3 className="text-lg font-semibold">{item.building_id} {item.building_name}</h3>
+									<div className="flex flex-row gap-2 justify-between">
+										<p className="text-sm">{item.formal_name}</p>
+										<button className="text-black bottom-4 right-4 px-3 py-1 text-xs bg-white rounded-lg shadow z-10">
+											VR View
+										</button>
+									</div>
 								</div>
 							</div>
-
 						</div>
+					))
+				) : (
+					<div className="flex justify-center px-6">
+						<SkeletonLoader />
 					</div>
-				))}
+				)}
 			</Slider>
 		</div>
 	);
