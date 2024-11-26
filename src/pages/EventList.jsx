@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import SkeletonLoader from './components/SkeletonLoader'; // Import the SkeletonLoader
 import NavBar from './components/NavBar';
+import { useNavigate } from 'react-router';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -36,10 +38,36 @@ const events = [
       location: 'Location 2',
       image: 'path/to/image2.jpg',
   },
+  {
+      id: 5,
+      title: 'Event Title 2',
+      date: 'Mar 15',
+      location: 'Location 2',
+      image: 'path/to/image2.jpg',
+  },
+  {
+      id: 6,
+      title: 'Event Title 2',
+      date: 'Mar 15',
+      location: 'Location 2',
+      image: 'path/to/image2.jpg',
+  },
+  {
+      id: 7,
+      title: 'Event Title 2',
+      date: 'Mar 15',
+      location: 'Location 2',
+      image: 'path/to/image2.jpg',
+  },
   // Add more events as needed
 ];
 
 const EventList = () => {
+    const navigate = useNavigate();
+
+    const handleBack = () => {
+        navigate(-1);
+    }
     // const [events, setEvents] = useState([]);
     // const [loading, setLoading] = useState(true);
     // const [error, setError] = useState(null);
@@ -83,8 +111,11 @@ const EventList = () => {
     return (
         <div className="min-h-screen flex flex-col">
             <div className="p-6">
-                <h1 className="text-2xl font-bold mb-4">Upcoming Events</h1>
-                <ul className="space-y-4">
+                <button onClick={handleBack}>
+                    <IoMdArrowRoundBack size={32} /> 
+                </button>
+                <h1 className="text-3xl font-semibold mb-4">Upcoming Events</h1>
+                <div className="flex flex-col gap-3 h-[80vh] pb-20 overflow-y-auto no-scrollbar">
                     {events.map(event => (
                         <div key={event.id} className="bg-white rounded-lg shadow-md p-4 flex items-center">
                             <img
@@ -104,7 +135,7 @@ const EventList = () => {
                             </div>
                         </div>
                     ))}
-                </ul>
+                </div>
             </div>
             <div className="flex-grow"></div>
             <div className="fixed bottom-6 w-full flex justify-center">

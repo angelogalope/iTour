@@ -67,6 +67,15 @@ body {
     color: gray;
 }
 
+.slick-slide {
+  display: flex; /* Ensure each slide is a flex container */
+  justify-content: center; /* Center the content */
+}
+
+.slick-list {
+  overflow: hidden; /* Prevent overflow */
+}
+
 
 
   
