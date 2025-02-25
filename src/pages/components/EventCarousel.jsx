@@ -55,8 +55,7 @@ const EventCarousel = () => {
             const { data, error } = await supabase
                 .from('events')
                 // .select('*')
-                .select('title, thumbnail, location, event_date, id')
-                .limit(5);
+                .select('title, thumbnail, location, event_date, id');
 
             if (error) {
                 console.error('Error fetching events:', error);
