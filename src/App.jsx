@@ -6,6 +6,7 @@ import Features from "./pages/Features";
 import "./App.css";
 import Permissions from "./pages/Permissions";
 import Welcome from "./pages/Welcome";
+import VRView from "./pages/VRView";
 import MapScreen from "./pages/MapScreen";
 import Dashboard from "./pages/Dashboard";
 import Favorites from "./pages/Favorites";
@@ -32,6 +33,7 @@ function App() {
           <Route path="/permissions" element={<Permissions />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/vr-view" element={<VRView />} />
           <Route path="/mapscreen" element={<MapScreen />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/eventlist" element={<EventList />} />
