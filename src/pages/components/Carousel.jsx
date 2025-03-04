@@ -15,12 +15,7 @@ const Carousel = () => {
 	const [loading, setLoading] = useState(true);
 	const [items, setItems] = useState([]);
 	const [currentSlide, setCurrentSlide] = useState(0); // Track current slide
-	const [showAR, setShowAR] = useState(false);
 	const navigate = useNavigate();
-
-	const handleARButton = () => {
-		navigate('/ar-view');
-	}
 
 	useEffect(() => {
 		// Simulate data fetching
@@ -111,11 +106,11 @@ const Carousel = () => {
 									<h3 className="text-lg font-semibold">{item.building_id} {item.building_name}</h3>
 									<div className="flex flex-row gap-2 justify-between">
 										<p className="text-sm">{item.formal_name}</p>
-										<button 
-											onClick={handleARButton}
-											className="text-black bottom-4 right-4 px-3 py-1 text-xs bg-white rounded-lg shadow z-10"
+										<button className="text-black bottom-4 right-4 px-3 py-1 text-xs bg-white rounded-lg shadow z-10"
+											// onClick={() => navigate("/vr-view", { state: { tourId: "bnf-q9khW" } })}
+											onClick={() => navigate("/vr-view")}
 										>
-											AR View
+											VR View
 										</button>
 									</div>
 								</div>
