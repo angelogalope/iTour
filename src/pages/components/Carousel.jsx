@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css"; 
 import SkeletonLoader from './SkeletonLoader'; // Import the SkeletonLoader
 import { createClient } from '@supabase/supabase-js'; // Import Supabase client
+import { useNavigate } from "react-router-dom";
 
 // Initialize Supabase client
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL; // Replace with your Supabase URL
@@ -14,6 +15,7 @@ const Carousel = () => {
 	const [loading, setLoading] = useState(true);
 	const [items, setItems] = useState([]);
 	const [currentSlide, setCurrentSlide] = useState(0); // Track current slide
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		// Simulate data fetching
@@ -104,7 +106,10 @@ const Carousel = () => {
 									<h3 className="text-lg font-semibold">{item.building_id} {item.building_name}</h3>
 									<div className="flex flex-row gap-2 justify-between">
 										<p className="text-sm">{item.formal_name}</p>
-										<button className="text-black bottom-4 right-4 px-3 py-1 text-xs bg-white rounded-lg shadow z-10">
+										<button className="text-black bottom-4 right-4 px-3 py-1 text-xs bg-white rounded-lg shadow z-10"
+											// onClick={() => navigate("/vr-view", { state: { tourId: "bnf-q9khW" } })}
+											onClick={() => navigate("/vr-view")}
+										>
 											VR View
 										</button>
 									</div>
