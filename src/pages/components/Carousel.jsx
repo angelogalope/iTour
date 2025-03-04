@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css"; 
 import SkeletonLoader from './SkeletonLoader'; // Import the SkeletonLoader
 import { createClient } from '@supabase/supabase-js'; // Import Supabase client
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 // Initialize Supabase client
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL; // Replace with your Supabase URL
