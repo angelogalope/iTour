@@ -13,6 +13,7 @@ import Favorites from "./pages/Favorites";
 import EventList from "./pages/EventList";
 import Settings from "./pages/Settings";
 import ARView from "./pages/ARView";
+import TourScreen from "./pages/TourScreen";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -36,6 +37,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/vr-view" element={<VRView />} />
           <Route path="/mapscreen" element={<MapScreen />} />
+          <Route path="/tourscreen" element={<TourScreen />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/eventlist" element={<EventList />} />
           <Route path="/settings" element={<Settings />} />
