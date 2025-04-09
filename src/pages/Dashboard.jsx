@@ -19,7 +19,11 @@ export default function Dashboard() {
   const handleVMap = () => {
     navigate('/mapscreen');
   }
-
+  
+  const handleTour = () => {
+    navigate('/tourscreen');
+  }
+  
   const handleNavigation = (page) => {
     setActivePage(page);
     navigate(`/${page}`);
@@ -48,9 +52,14 @@ export default function Dashboard() {
                 <input type="text" placeholder="Search" className="w-full text-lg outline-none bg-transparent text-black font-normal" />
                 <PiMagnifyingGlassBold size={22} />
               </div>
-              <button onClick={handleVMap} className="flex bg-[url('/src/assets/map-btn.png')] bg-cover p-4 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-lg font-black">
-                <p>Go to CSU Virtual Map</p>
+              <div className="flex w-full gap-2 justify-between items-center"> 
+              <button onClick={handleVMap} className="flex w-full bg-[url('/src/assets/map-btn.png')] bg-cover p-2 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-md font-medium">
+                <p>Go to 3D Virtual Map</p>
               </button>
+              <button onClick={handleTour} className="flex w-full bg-[url('/src/assets/map-btn.png')] bg-cover p-2 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-md font-medium">
+                <p>Go to CSU Tour</p>
+              </button>
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-4">
