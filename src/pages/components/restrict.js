@@ -1,26 +1,48 @@
-import 'aframe';
+// Restricts the camera movement to within a dome shape.
 
-AFRAME.registerComponent('restrict-movement', {
-  init: function () {
-    const maxRadius = 600;  // Define the maximum radius of movement
+import { useEffect } from 'react';
+import * as THREE from 'three';
+import nipplejs from 'nipplejs';
 
-    this.el.addEventListener('componentchanged', (evt) => {
-      if (evt.detail.name !== 'position') return;
+const Restrict = (cameraRigRef, joystickRef, domeRadiusX, domeRadiusZ) => {
+  
+  useEffect(() => {
+    if (cameraRigRef.current && joystickRef.current) {
+      const joystick = nipplejs.create({
+        zone: joystickRef.current,
+        mode: 'static',
+        position: { left: '-10%', bottom: '50%' },
+        color: 'white'
+      });
 
-      const position = this.el.getAttribute('position');
-      const distanceFromCenter = Math.sqrt(position.x * position.x + position.z * position.z);
+      // Dome center at (0, 0, 0) and defined radius
+      const domeCenter = new THREE.Vector3(0, 0, 0);
 
-      console
+      joystick.on('move', (event, data) => {
+        const { angle, distance } = data;
+        const camera = cameraRigRef.current.object3D;
+        const cameraRotationY = camera.rotation.y;
 
-      // Check if the camera is outside the allowed radius
-      if (distanceFromCenter > maxRadius) {
-        const scale = maxRadius / distanceFromCenter;
-        position.x *= scale;
-        position.z *= scale;
-        this.el.setAttribute('position', position);
-      }
-    });
-  },
-});
+        const angleRad = (angle.degree * Math.PI) / 180;
+        const moveDistance = distance / 50;
+        const dx = moveDistance * Math.cos(angleRad + cameraRotationY);
+        const dz = moveDistance * Math.sin(angleRad + cameraRotationY);
 
-export default {};  
+        // Calculate potential new position
+        const newPosition = camera.position.clone().add(new THREE.Vector3(dx, 0, -dz));
+
+        // enforce elliptical boundary
+        const clampedX = Math.max(-domeRadiusX, Math.min(domeRadiusX, newPosition.x));
+        const clampedZ = Math.max(-domeRadiusZ, Math.min(domeRadiusZ, newPosition.z));
+
+        // apply clamped position
+        camera.position.set(clampedX, camera.position.y, clampedZ);
+      });
+
+      joystick.on('end', () => {
+      });
+    }
+  }, [cameraRigRef, joystickRef, domeRadiusX, domeRadiusZ]);
+};
+
+export default Restrict;
