@@ -34,6 +34,7 @@ function MapScreen() {
       // Listen for the scene's loaded event
       scene.addEventListener('loaded', () => {
         console.log('Scene loaded');
+        // setIsLoading(false); 
 
         // Temporarily disable look-controls
         cameraRigRef.current.setAttribute('look-controls', 'enabled', false);
@@ -166,8 +167,22 @@ function MapScreen() {
 
           {/* Bottom Navigation Bar */}
           <div className="">
-            <SearchMenu /> 
+            <SearchMenu
+              onBuildingSelect={(building) => {
+                if (cameraRigRef.current) {
+                  const camera = cameraRigRef.current.object3D;
+                  camera.position.set(building.xCoord, building.yCoord, building.zCoord);
+                  setCameraPosition({ x: building.xCoord, y: building.yCoord, z: building.zCoord });
+                }
+              }}
+            />
           </div>
+
+          {/* <div className="absolute bottom-20 left-6 bg-white p-2 rounded-md shadow-md z-50">
+            <p className="text-sm font-mono">
+              X: {cameraPosition.x}, Y: {cameraPosition.y}, Z: {cameraPosition.z}
+            </p>
+          </div> */}
         </div>
       )}
     
