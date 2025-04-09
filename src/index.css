@@ -76,6 +76,13 @@ body {
   overflow: hidden; /* Prevent overflow */
 }
 
+.animate-walking {
+  animation: walking 3s infinite;
+}
 
+@keyframes walking {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+}
 
   
