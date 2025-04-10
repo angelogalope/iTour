@@ -10,11 +10,32 @@ import * as THREE from 'three';
 import Restrict from './components/Restrict';
 import { useNavigate } from 'react-router';
 import SearchMenu from './components/SearchMenu';
+import supabase from '../utils/supabase';
 
 function MapScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAerialView, setIsAerialView] = useState(false);
   const [cameraPosition, setCameraPosition] = useState({ x: 0, y: 10, z: 0 });
+  const [events, setEvents] = useState([]);
+
+  // Fetch events from Supabase
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('events') // Replace 'events' with your table name
+          .select('id, title, x_coordinate, y_coordinate'); // Select relevant fields
+
+        if (error) throw error;
+
+        setEvents(data); // Set events in state
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   const cameraRigRef = useRef(null);
   const joystickRef = useRef(null);
@@ -239,6 +260,27 @@ function MapScreen() {
           scale="1.7 1 0.8"
           radius="3000"
         ></a-sky>
+        {/* Event Markers */}
+        {events.map((event) => (
+          <a-entity key={event.id} position={`${event.x_coordinate} 200 ${event.y_coordinate}`}>
+            {/* Pinpoint Logo */}
+            <a-image
+              src="/src/assets/pinpoint.png" // Replace with your pinpoint image path
+              width="20"
+              height="20"
+              position="0 0 0"
+            ></a-image>
+
+            {/* Event Name */}
+            <a-text
+              value={event.title}
+              align="center"
+              color="black"
+              position="0 10 0"
+              scale="10 10 10"
+            ></a-text>
+          </a-entity>
+        ))}
       </a-scene>
     </div>
   );
