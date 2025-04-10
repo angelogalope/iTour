@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'aframe';
+import 'aframe-look-at-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEye, faBook, faSearch, faEllipsisH, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { IoInformation, IoEyeOutline } from "react-icons/io5";
@@ -211,6 +212,7 @@ function MapScreen() {
       <a-scene>
         <a-entity>
           <a-camera
+            id="camera-rig"
             position={`${cameraPosition.x} ${isAerialView ? 200 : 10} ${cameraPosition.z}`}
             animation__position={`property: position; to: ${cameraPosition.x} ${isAerialView ? 200 : 10} ${cameraPosition.z}; dur: 1000; easing: easeInOutQuad`}
             look-controls="enabled: false"
@@ -262,23 +264,30 @@ function MapScreen() {
         ></a-sky>
         {/* Event Markers */}
         {events.map((event) => (
-          <a-entity key={event.id} position={`${event.x_coordinate} 200 ${event.y_coordinate}`}>
-            {/* Pinpoint Logo */}
-            <a-image
-              src="/src/assets/pinpoint.png" // Replace with your pinpoint image path
-              width="20"
-              height="20"
-              position="0 0 0"
-            ></a-image>
+          <a-entity 
+            key={event.id} 
+            position={`${event.x_coordinate} 70 ${event.y_coordinate}`}
+          >
+            <a-entity
+              animation="property: position; to: 0 10 0; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true"
+            >
+              <a-entity
+                obj-model="obj: url(/src/assets/pinpoint.obj)" // Only the .obj file
+                material="color: red; shader: standard; roughness: 0.5; metalness: 0.2" // Custom material
+                scale="10 10 10" // Adjust the scale as needed
+                look-at="#camera-rig"
+              ></a-entity>
 
-            {/* Event Name */}
-            <a-text
-              value={event.title}
-              align="center"
-              color="black"
-              position="0 10 0"
-              scale="10 10 10"
-            ></a-text>
+              {/* Event Name */}
+              <a-text
+                value={event.title}
+                align="center"
+                color="black"
+                position="0 30 0"
+                scale="20 20 20"
+                look-at="#camera-rig"
+              ></a-text>
+            </a-entity>
           </a-entity>
         ))}
       </a-scene>
