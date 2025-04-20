@@ -12,8 +12,8 @@ import Dashboard from "./pages/Dashboard";
 import Favorites from "./pages/Favorites";
 import EventList from "./pages/EventList";
 import Settings from "./pages/Settings";
-import ARView from "./pages/ARView";
 import TourScreen from "./pages/TourScreen";
+import Navigation from "./pages/Navigation";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/eventlist" element={<EventList />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/ar-view" element={<ARView />} />
+          <Route path="/navigation" element={<Navigation />} />
         </Routes>
       )}
 

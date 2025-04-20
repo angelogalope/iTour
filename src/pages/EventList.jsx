@@ -72,6 +72,10 @@ const EventList = () => {
         navigate(-1);
     };
 
+    const handleVrBtn = () => {
+        navigate('/vr-view');
+    }
+
     const fetchEvents = async () => {
         setLoading(true);
         try {
@@ -205,8 +209,8 @@ const EventList = () => {
                                 <p className="text-xs text-gray-400">{event.event_date}</p>
                             </div>
                             <div className="ml-auto flex flex-col items-end">
-                              <button className="mt-2 px-3 py-1 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600">
-                                  AR View
+                              <button onClick={handleVrBtn} className="mt-2 px-3 py-1 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600">
+                                  VR View
                               </button>
                             </div>
                         </div>

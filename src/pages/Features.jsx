@@ -60,7 +60,7 @@ const Features = () => {
 	}, [handleScroll]);
 
 	return (
-		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2 py-6 px-4">
+		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2 py-6">
 			{/* Slider Container */}
 			<div
 				ref={sliderRef}

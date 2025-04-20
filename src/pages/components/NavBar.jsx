@@ -38,7 +38,7 @@ export default function NavBar() {
   };
 
   const handleMapBtn = () => {
-    navigate('/mapscreen');
+    navigate('/navigation');
   };
 
   const handleFavBtn = () => {

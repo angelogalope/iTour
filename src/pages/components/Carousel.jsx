@@ -104,13 +104,19 @@ const Carousel = () => {
 								{/* Content */}
 								<div className="relative p-2 text-white z-10">
 									<h3 className="text-lg font-semibold">{item.building_id} {item.building_name}</h3>
-									<div className="flex flex-row gap-2 justify-between">
-										<p className="text-sm">{item.formal_name}</p>
-										<button className="text-black bottom-4 right-4 px-3 py-1 text-xs bg-white rounded-lg shadow z-10"
-											// onClick={() => navigate("/vr-view", { state: { tourId: "bnf-q9khW" } })}
-											onClick={() => navigate("/vr-view")}
+									<div className="flex flex-row gap-2 justify-between items-center">
+										<p className="text-sm max-w-44">{item.formal_name}</p>
+										<button
+											className="h-8 px-3 text-xs bg-white rounded-lg shadow text-black whitespace-nowrap flex items-center justify-center"
+											onClick={() => {
+											if (item.building_id === "CCIS") {
+												navigate("/vr-view");
+											} else {
+												alert("Virtual Tour not yet available");
+											}
+											}}
 										>
-											VR View
+											Virtual Tour
 										</button>
 									</div>
 								</div>

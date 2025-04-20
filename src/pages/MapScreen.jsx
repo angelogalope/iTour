@@ -283,7 +283,7 @@ function MapScreen() {
                 value={event.title}
                 align="center"
                 color="black"
-                position="0 30 0"
+                position="0 35 0"
                 scale="20 20 20"
                 look-at="#camera-rig"
               ></a-text>

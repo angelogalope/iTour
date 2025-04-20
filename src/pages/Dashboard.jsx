@@ -46,7 +46,7 @@ export default function Dashboard() {
 
         <div className="pb-16 flex flex-col gap-4">
           <div className="flex flex-col gap-4 px-6">
-            <h1 className="text-4xl font-black">Find Your Destination</h1>
+            <h1 className="flex flex-col text-3xl font-black">Navigate To <span>Your Destination</span></h1>
             <div className="flex flex-col gap-4">
               <div className="flex p-3 items-center text-gray-500 font-semibold bg-white rounded-lg shadow-gray-500 shadow-md">
                 <input type="text" placeholder="Search" className="w-full text-lg outline-none bg-transparent text-black font-normal" />
