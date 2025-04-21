@@ -1,56 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ARView from './components/ARView';
+// import { Button } from '@/components/ui/button';
+import { predefinedDestinations } from '../utils/navigationUtils';
+import { Link } from 'react-router-dom';
 
 function Navigation() {
-    // List of locations with coordinates from OpenStreetMap
-  const locations = [
-    { name: "Caraga State University", lat: 8.2292, lon: 125.5882 },
-    { name: "Tokyo Tower", lat: 35.6586, lon: 139.7454 },
-    { name: "Eiffel Tower", lat: 48.8584, lon: 2.2945 },
-    { name: "St. Anthony of Padua Parish", lat: 8.828503, lon: 125.691453 },
-  ];
-
-  // State for selected location
-  const [selectedLocation, setSelectedLocation] = useState(locations[0]);
-
-  // Handle location change
-  const handleLocationChange = (e) => {
-    const selected = locations.find(loc => loc.name === e.target.value);
-    setSelectedLocation(selected);
+  const [selectedDestination, setSelectedDestination] = useState(null);
+  const [distance, setDistance] = useState(null);
+  
+  // Setup global callback for distance updates from ARView
+  useEffect(() => {
+    window.updateNavigationDistance = (newDistance) => {
+      setDistance(newDistance);
+    };
+    
+    return () => {
+      window.updateNavigationDistance = null;
+    };
+  }, []);
+  
+  const handleDestinationChange = (event) => {
+    const selectedIndex = event.target.value;
+    setSelectedDestination(predefinedDestinations[selectedIndex]);
   };
 
   return (
-    <div className="h-screen bg-gray-100 flex items-center justify-center">
-      <div className="absolute top-4 left-4 z-10 bg-white p-4 rounded shadow-lg">
-        <select
-          onChange={handleLocationChange}
-          value={selectedLocation.name}
-          className="p-2 border border-gray-300 rounded"
-        >
-          {locations.map((location, index) => (
-            <option key={index} value={location.name}>
-              {location.name}
-            </option>
-          ))}
-        </select>
+    <div className="relative min-h-screen">
+      <ARView destination={selectedDestination} />
+      
+      {/* Destination selector overlay */}
+      <div className="absolute top-0 left-0 right-0 p-4 bg-black/70 z-10 backdrop-blur-sm">
+        <div className="flex flex-col space-y-3 max-w-md mx-auto">
+          <div className="flex justify-between items-center">
+            <label htmlFor="destination-select" className="text-white font-medium text-lg">
+              Select Destination
+            </label>
+            <Link to="/">
+              <button size="sm" variant="outline" className="text-xs bg-white/10 hover:bg-white/20 text-white">
+                Back to Home
+              </button>
+            </Link>
+          </div>
+          
+          <select 
+            id="destination-select"
+            className="p-3 rounded-md bg-white/90 border-2 border-blue-400 text-gray-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={handleDestinationChange}
+            defaultValue=""
+          >
+            <option value="" disabled>Choose a destination...</option>
+            {predefinedDestinations.map((dest, index) => (
+              <option key={dest.name} value={index}>
+                {dest.name}
+              </option>
+            ))}
+          </select>
+          
+          {selectedDestination && (
+            <div className="mt-2 text-white bg-blue-600/70 p-3 rounded-md">
+              <div className="flex items-center justify-between">
+                <p className="font-bold text-lg">Navigating to: {selectedDestination.name}</p>
+                {distance && (
+                  <div className="bg-white/20 px-3 py-1 rounded-full text-sm">
+                    {Math.round(distance)}m away
+                  </div>
+                )}
+              </div>
+              <p className="text-xs opacity-90 mt-1">
+                Follow the blue arrow to reach your destination
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-
-      <a-scene
-        embedded
-        arjs="sourceType: webcam; debugUIEnabled: false;"
-        style={{ height: '100vh', width: '100%' }}
-      >
-        {/* Arrow pointing to the selected location */}
-        <a-entity
-          gps-entity-place={`latitude: ${selectedLocation.lat}; longitude: ${selectedLocation.lon}`}
-          geometry="primitive: cone; height: 1; radiusBottom: 0.3"
-          material="color: red"
-          position="5 0.5 0"
-          rotation="-90 0 0"
-        ></a-entity>
-
-        {/* Camera */}
-        <a-camera gps-camera rotation-reader></a-camera>
-      </a-scene>
     </div>
   );
 }
