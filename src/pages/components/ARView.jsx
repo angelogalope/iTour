@@ -264,7 +264,7 @@ const smoothBearing = useRef(0);
         embedded
         arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix;"
         renderer="logarithmicDepthBuffer: true;"
-        style={{ width: "100vw", height: "100vh", position: "absolute", top: 0, left: 0, overflow: "hidden" }}
+        style={{ position: "absolute", top: 0, left: 0, overflow: "hidden" }}
       >
         {/* Navigation Arrow pointing to destination */}
         <a-entity camera>
@@ -300,7 +300,13 @@ const smoothBearing = useRef(0);
         }
       `}</style>
         {/* Scene end */}
+        
       </a-scene>
+        {/* <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-20">
+          <div className="bg-white p-4 rounded">
+            <p>Loading AR environment...</p>
+          </div>
+        </div> */}
       
       {/* Loading indicators and fallbacks */}
       {!userLocation && (

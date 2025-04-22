@@ -11,7 +11,7 @@ function Navigation() {
   const navigate = useNavigate();
 
   const handleBackBtn = () => {
-    navigate(-1);
+    navigate("/dashboard");
   }
   
   // Setup global callback for distance updates from ARView
@@ -31,7 +31,7 @@ function Navigation() {
   };
 
   return (
-    <div className="relative min-h-screen">
+    <div className="">
       <ARView destination={selectedDestination} />
       
       {/* Destination selector overlay */}

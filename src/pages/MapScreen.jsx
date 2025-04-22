@@ -15,6 +15,7 @@ import supabase from '../utils/supabase';
 
 function MapScreen() {
   const [isLoading, setIsLoading] = useState(true);
+  const [ready, setReady] = useState(false);
   const [isAerialView, setIsAerialView] = useState(false);
   const [cameraPosition, setCameraPosition] = useState({ x: 0, y: 10, z: 0 });
   const [events, setEvents] = useState([]);
@@ -36,6 +37,34 @@ function MapScreen() {
     };
 
     fetchEvents();
+  }, []);
+
+  useEffect(() => {
+      // Clean up AR.js globals *before* scene renders
+      if (AFRAME) {
+        delete AFRAME.systems['arjs'];
+        delete AFRAME.components['arjs'];
+        delete AFRAME.components['arjs-camera'];
+        delete AFRAME.components['marker'];
+        delete AFRAME.components['gps-camera'];
+        delete AFRAME.components['location-based'];
+      }
+  
+      // Now it's safe to render the scene
+      setReady(true);
+    }, []);
+  
+
+  useEffect(() => {
+    // Remove AR.js system if it's globally registered
+    if (AFRAME && AFRAME.systems['arjs']) {
+      delete AFRAME.systems['arjs'];
+    }
+
+    // Optional: Override arjs-camera if needed
+    if (AFRAME.components['arjs-camera']) {
+      delete AFRAME.components['arjs-camera'];
+    }
   }, []);
 
   const cameraRigRef = useRef(null);
@@ -160,6 +189,8 @@ function MapScreen() {
     }
   };
 
+  if (!ready) return <div>Preparing CSU 3D Tour...</div>;
+
   return (
     <div className="h-screen flex flex-col items-center justify-center relative">
       {/* Loading Screen */}
@@ -217,6 +248,7 @@ function MapScreen() {
             animation__position={`property: position; to: ${cameraPosition.x} ${isAerialView ? 200 : 10} ${cameraPosition.z}; dur: 1000; easing: easeInOutQuad`}
             look-controls="enabled: false"
             ref={cameraRigRef}
+            arjs="false"
           ></a-camera>
         </a-entity>
 
