@@ -62,13 +62,13 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-4">
-            <h1 className="px-6 text-xl font-semibold">Recommended</h1>
+          <div className="flex flex-col gap-4 pt-2">
+            <h1 className="px-6 text-lg font-semibold">Interior 360 Virtual Tour</h1>
             <Carousel />
           </div>
 
-          <div className="flex flex-col gap-4 pt-2 pb-14 mt-4">
-            <h1 className="px-6 text-xl font-semibold">Upcoming CSU - Main Events</h1>
+          <div className="flex flex-col gap-4 pt-2 pb-36 mt-4">
+            <h1 className="px-6 text-lg font-semibold">Upcoming CSU - Main Events</h1>
             <EventCarousel />
           </div>
 

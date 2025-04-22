@@ -157,7 +157,7 @@ const EventList = () => {
 
     if (loading || error) {
         return (
-            <div className="min-h-screen flex flex-col">
+            <div className="min-h-screen flex flex-col bg-white">
                 <div className="p-6">
                     <button onClick={handleBack}>
                         <IoMdArrowRoundBack size={32} /> 
@@ -184,7 +184,7 @@ const EventList = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col bg-white">
             <div className="p-6">
                 <button onClick={handleBack}>
                     <IoMdArrowRoundBack size={32} /> 

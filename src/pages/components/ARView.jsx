@@ -264,7 +264,7 @@ const smoothBearing = useRef(0);
         embedded
         arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix;"
         renderer="logarithmicDepthBuffer: true;"
-        style={{ width: "100%", height: "100vh", position: "absolute", top: 0, left: 0 }}
+        style={{ width: "100vw", height: "100vh", position: "absolute", top: 0, left: 0, overflow: "hidden" }}
       >
         {/* Navigation Arrow pointing to destination */}
         <a-entity camera>
@@ -288,6 +288,17 @@ const smoothBearing = useRef(0);
           )} */}
         </a-entity>
         
+      <style>{`
+        video {
+          object-fit: cover !important;
+          width: 100% !important;
+          height: 100% !important;
+          position: fixed !important;
+          top: 0;
+          left: 0;
+          z-index: -2;
+        }
+      `}</style>
         {/* Scene end */}
       </a-scene>
       
