@@ -27,12 +27,14 @@ if (typeof AFRAME !== 'undefined') {
     },
     
     updateRotation: function() {
-      // Update the arrow's rotation - rotate only on the Y axis like a compass
-      // We're using a negative bearing because in A-Frame, positive Y rotation is clockwise
-      // while compass bearings are measured clockwise from north
-      const rotationY = -THREE.MathUtils.degToRad(this.data.bearing);
+      // Safeguard against NaN/undefined
+      const bearing = Number.isFinite(this.data.bearing) ? this.data.bearing : 0;
+      
+      // Convert to radians and set rotation
+      const rotationY = -THREE.MathUtils.degToRad(bearing);
       this.el.object3D.rotation.set(0, rotationY, 0);
-      console.log("Arrow rotation updated to:", this.data.bearing, "degrees");
+      
+      console.log("[ARROW] Actual rotation applied:", bearing);
     },
 
     createArrow: function() {

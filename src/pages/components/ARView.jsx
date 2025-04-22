@@ -5,6 +5,9 @@ import { calculateBearing, calculateDistance } from '../../utils/navigationUtils
 import "../../assets/arrow.js";
 
 const ARView = ({ destination }) => {
+  // At top of ARView.jsx
+const smoothBearing = useRef(0);
+
   // We'll add a callback to send distance updates to the parent component
   const onDistanceUpdate = distance => {
     if (window.updateNavigationDistance) {
@@ -84,20 +87,12 @@ const ARView = ({ destination }) => {
       dest.lng
     );
     
-    console.log("New Bearing:", newBearing.toFixed(2), "New Distance:", newDistance.toFixed(2));
+    console.log("[DEBUG] Bearing:", newBearing, "Distance:", newDistance);
     setBearing(newBearing);
     setDistance(newDistance);
-    
-    // Call the distance update callback
     onDistanceUpdate(newDistance);
     
-    // Notify user when they're close to destination (within 20 meters)
-    if (newDistance < 20 && distance && distance > 20) {
-      // Only notify if they weren't previously close
-      alert(`You're almost at your destination: ${dest.name}!`);
-    }
-    
-    // Force arrow rotation update
+    // Force update the arrow rotation immediately
     updateArrowRotation(newBearing);
   };
   
@@ -159,67 +154,108 @@ const ARView = ({ destination }) => {
   
   // Handle device orientation changes to get compass heading
   const handleOrientation = (event) => {
-    // Store orientation data
-    deviceOrientationRef.current = {
-      alpha: event.alpha,
-      webkitCompassHeading: event.webkitCompassHeading,
-      absolute: event.absolute || false
-    };
-    
-    // Update arrow rotation whenever device orientation changes
-    updateArrowRotation();
+    // Only process if we have valid data
+    if (event.alpha !== null || event.webkitCompassHeading !== null) {
+      deviceOrientationRef.current = {
+        alpha: event.alpha,
+        webkitCompassHeading: event.webkitCompassHeading,
+        absolute: event.absolute
+      };
+      updateArrowRotation();
+    }
   };
   
   // Update arrow rotation based on device orientation and destination bearing
   const updateArrowRotation = (currentBearing = null) => {
     if (!userLocation || !destination) return;
-    
-    // Use provided bearing or the current state bearing
+  
+    // Use provided bearing or fall back to state
     const destBearing = currentBearing !== null ? currentBearing : bearing;
-    
-    // Get compass heading - where the device is pointing
+  
+    // Get current compass heading
     let compassHeading = null;
-    
-    // Use WebKit compass heading (iOS)
-    if (deviceOrientationRef.current.webkitCompassHeading !== null) {
+  
+    // iOS (WebKit)
+    if (typeof deviceOrientationRef.current.webkitCompassHeading === 'number') {
       compassHeading = deviceOrientationRef.current.webkitCompassHeading;
     } 
-    // Use alpha (Android)
-    else if (deviceOrientationRef.current.alpha !== null) {
-      // On Android, alpha gives the rotation of the device from North
-      compassHeading = 360 - deviceOrientationRef.current.alpha;
-      
-      // Adjust for screen orientation if available
-      if (window.screen && window.screen.orientation) {
-        const screenOrientation = window.screen.orientation.angle || 0;
-        compassHeading = (compassHeading + screenOrientation) % 360;
+    // Android/other devices
+    else if (typeof deviceOrientationRef.current.alpha === 'number') {
+      // Invert alpha and adjust for screen orientation
+      compassHeading = (360 - deviceOrientationRef.current.alpha) % 360;
+  
+      // Adjust for screen orientation (portrait or landscape)
+      if (window.screen?.orientation?.angle) {
+        compassHeading = (compassHeading + window.screen.orientation.angle) % 360;
+      }
+  
+      // Additional adjustment for Android-specific quirks
+      if (navigator.userAgent.match(/Android/i)) {
+        compassHeading = (compassHeading + 180) % 360; // Flip 180 degrees for Android
       }
     }
-    
-    if (compassHeading === null) {
-      console.log("No valid compass data yet");
-      return;
+  
+    // Calculate final rotation
+    let arrowRotation = 0;
+    if (compassHeading !== null) {
+      // Point to destination relative to compass
+      arrowRotation = (destBearing - compassHeading + 360) % 360;
+    } else {
+      // Fallback: point directly to destination (ignore device rotation)
+      arrowRotation = destBearing;
     }
-    
-    // Calculate relative bearing (arrow rotation)
-    // This formula ensures the arrow points toward the destination regardless of phone orientation
-    const relativeBearing = (destBearing - compassHeading + 360) % 360;
-    
-    console.log("Compass:", compassHeading.toFixed(2), "Destination Bearing:", destBearing.toFixed(2), "Arrow Rotation:", relativeBearing.toFixed(2));
-    
-    // Update the arrow's rotation
+  
+    console.log("[ARROW] Setting rotation to:", arrowRotation);
+  
+    // Update the arrow via A-Frame component
     const arrowElement = document.getElementById('navigation-arrow');
     if (arrowElement) {
-      arrowElement.setAttribute('navigation-arrow', `bearing: ${relativeBearing}`);
+      arrowElement.setAttribute('navigation-arrow', {
+        bearing: arrowRotation,
+        pulse: true
+      });
     }
+  
+    // Smooth the bearing transition
+    smoothBearing.current = smoothBearing.current * 0.3 + arrowRotation * 0.7;
+    arrowRotation = smoothBearing.current;
   };
   
   // Update bearing and distance when user location or destination changes
   useEffect(() => {
+    // This should run whenever destination OR userLocation changes
     if (userLocation && destination) {
       updateBearingAndDistance(userLocation, destination);
     }
   }, [userLocation, destination]);
+
+  useEffect(() => {
+    // Setup orientation listeners
+    const requestOrientation = () => {
+      if (typeof DeviceOrientationEvent !== 'undefined') {
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+          // iOS 13+ permission flow
+          DeviceOrientationEvent.requestPermission()
+            .then(permission => {
+              if (permission === 'granted') {
+                window.addEventListener('deviceorientation', handleOrientation, true);
+              }
+            })
+            .catch(console.error);
+        } else {
+          // Non-iOS devices
+          window.addEventListener('deviceorientation', handleOrientation, true);
+        }
+      }
+    };
+  
+    // Start orientation detection
+    requestOrientation();
+  
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation);
+    };
+  }, []);
   
   return (
     <div>
@@ -240,7 +276,7 @@ const ARView = ({ destination }) => {
             navigation-arrow="color: #0066ff; size: 1; bearing: 0"
           ></a-entity>
           
-          {/* Distance indicator (text) */}
+          {/* Distance indicator (text)
           {destination && distance && (
             <a-text
               value={`${Math.round(distance)} meters`}
@@ -249,7 +285,7 @@ const ARView = ({ destination }) => {
               align="center"
               scale="0.5 0.5 0.5"
             ></a-text>
-          )}
+          )} */}
         </a-entity>
         
         {/* Scene end */}
