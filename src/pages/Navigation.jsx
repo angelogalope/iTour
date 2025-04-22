@@ -3,10 +3,16 @@ import ARView from './components/ARView';
 // import { Button } from '@/components/ui/button';
 import { predefinedDestinations } from '../utils/navigationUtils';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 function Navigation() {
   const [selectedDestination, setSelectedDestination] = useState(null);
   const [distance, setDistance] = useState(null);
+  const navigate = useNavigate();
+
+  const handleBackBtn = () => {
+    navigate(-1);
+  }
   
   // Setup global callback for distance updates from ARView
   useEffect(() => {
@@ -35,11 +41,9 @@ function Navigation() {
             <label htmlFor="destination-select" className="text-white font-medium text-lg">
               Select Destination
             </label>
-            <Link to="/">
-              <button size="sm" variant="outline" className="text-xs bg-white/10 hover:bg-white/20 text-white">
-                Back to Home
-              </button>
-            </Link>
+            <button onClick={handleBackBtn} size="sm" variant="outline" className="text-xs bg-white/10 hover:bg-white/20 text-white">
+              Back to Home
+            </button>
           </div>
           
           <select 

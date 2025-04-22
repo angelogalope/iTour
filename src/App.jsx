@@ -30,8 +30,7 @@ function App() {
         <Preloader />
       ) : (
         <Routes>
-          <Route path="/" element={<Languages />} />
-          <Route path="/features" element={<Features />} />
+          <Route path="/" element={<Features />} />
           <Route path="/permissions" element={<Permissions />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/dashboard" element={<Dashboard />} />

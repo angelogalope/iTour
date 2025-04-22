@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IoHomeOutline, IoMapOutline, IoHeartOutline, IoExitOutline } from "react-icons/io5";
+import { LuMapPin } from "react-icons/lu";
 import { MdOutlineEvent } from "react-icons/md";
 import { useNavigate, useLocation } from 'react-router';
 
@@ -69,22 +70,22 @@ export default function NavBar() {
         onClick={handleHomeBtn}
         className={`p-4 ${activeButton === 'home' ? 'text-secGreen border-b-2 border-secGreen' : ''}`}
       >
-        <IoHomeOutline size={28} />
+        <IoHomeOutline size={20} />
       </button>
       <button
         onClick={handleMapBtn}
         className="relative text-white bottom-8 flex items-center justify-center w-16 h-16 bg-secGreen rounded-full"
       >
-        <IoMapOutline size={28} />
+        <LuMapPin  size={20} />
       </button>
       {/* <button
         onClick={handleFavBtn}
         className={`p-4 ${activeButton === 'favorites' ? 'rounded-2xl shadow-slate-400 shadow-md bg-secGreen text-white' : ''}`}
       >
-        <IoHeartOutline size={28} />
+        <IoHeartOutline size={20} />
       </button> */}
       <button onClick={handleEventBtn} className={`p-4 ${activeButton === 'eventlist' ? 'text-secGreen border-b-2 border-secGreen' : ''}`}>
-        <MdOutlineEvent size={28} />
+        <MdOutlineEvent size={20} />
       </button>
 
       {/* Confirmation Dialog */}
