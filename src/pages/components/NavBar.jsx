@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { IoHomeOutline, IoMapOutline, IoHeartOutline, IoExitOutline } from "react-icons/io5";
 import { LuMapPin } from "react-icons/lu";
+import { TbNavigationPin } from "react-icons/tb";
+import { PiNavigationArrowDuotone } from "react-icons/pi";
 import { MdOutlineEvent } from "react-icons/md";
 import { useNavigate, useLocation } from 'react-router';
 
@@ -76,7 +78,7 @@ export default function NavBar() {
         onClick={handleMapBtn}
         className="relative text-white bottom-8 flex items-center justify-center w-16 h-16 bg-secGreen rounded-full"
       >
-        <LuMapPin  size={20} />
+        <PiNavigationArrowDuotone  size={32} />
       </button>
       {/* <button
         onClick={handleFavBtn}

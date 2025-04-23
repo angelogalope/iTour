@@ -73,7 +73,7 @@ const Features = () => {
 					>
 						{/* Slide Content */}
 						<div className="text-center text-white">
-							<h1 className="text-3xl font-bold">{slide.title}</h1>
+							<h1 className="text-2xl font-bold">{slide.title}</h1>
 						</div>
 
 						{/* Image Section */}
@@ -81,7 +81,7 @@ const Features = () => {
 							<img src={slide.img} className="object-contain max-w-72" />
 						</div>
 						<div className="text-center text-white">
-							<p className=" text-lg">{slide.description}</p>
+							<p className=" text-md">{slide.description}</p>
 						</div>
 					</div>
 				))}

@@ -6,29 +6,38 @@ import "aframe";
 import "aframe-extras";
 
 const TourScreen = () => {
-  const [ready, setReady] = useState(false);
   const [imageSrc, setImageSrc] = useState("/images/gate.jpg");
   const lastTapRef = useRef(0);
   const navigate = useNavigate();
-        
+
   const handleBack = () => {
     navigate(-1);
   }
 
-  useEffect(() => {
-    // Clean up AR.js globals *before* scene renders
-    if (AFRAME) {
-      delete AFRAME.systems['arjs'];
-      delete AFRAME.components['arjs'];
-      delete AFRAME.components['arjs-camera'];
-      delete AFRAME.components['marker'];
-      delete AFRAME.components['gps-camera'];
-      delete AFRAME.components['location-based'];
-    }
+  if (AFRAME) {
+    delete AFRAME.systems['arjs'];
+    delete AFRAME.components['arjs'];
+    delete AFRAME.components['arjs-camera'];
+    delete AFRAME.components['marker'];
+    delete AFRAME.components['gps-camera'];
+    delete AFRAME.components['location-based'];
+  }
 
-    // Now it's safe to render the scene
-    setReady(true);
-  }, []);
+  // useEffect(() => {
+  //   // Clean up AR.js globals *before* scene renders
+  //   if (AFRAME) {
+  //     delete AFRAME.systems['arjs'];
+  //     delete AFRAME.components['arjs'];
+  //     delete AFRAME.components['arjs-camera'];
+  //     delete AFRAME.components['marker'];
+  //     delete AFRAME.components['gps-camera'];
+  //     delete AFRAME.components['location-based'];
+  //   }
+
+  //   // Now it's safe to render the scene
+  //   setReady(true);
+  // }, []);
+
 
   useEffect(() => {
     const player = document.getElementById("rig");
@@ -63,7 +72,7 @@ const TourScreen = () => {
           setImageSrc("/images/gate-ced.jpg");
           resetPosition(player, 20);
         }
-        if (position.z < -5) {
+        if (position.z < -5 && position.x < -3) {
           setImageSrc("/images/gate-caa.jpg");
           resetPosition(player, 120);
         }
@@ -907,20 +916,6 @@ const TourScreen = () => {
 
     lastTapRef.current = currentTime;
   };
-
-  useEffect(() => {
-    // Remove AR.js system if it's globally registered
-    if (AFRAME && AFRAME.systems['arjs']) {
-      delete AFRAME.systems['arjs'];
-    }
-
-    // Optional: Override arjs-camera if needed
-    if (AFRAME.components['arjs-camera']) {
-      delete AFRAME.components['arjs-camera'];
-    }
-  }, []);
-
-  if (!ready) return <div>Preparing CSU 360 Tour...</div>;
 
   return (
     <div className="relative w-full h-screen">

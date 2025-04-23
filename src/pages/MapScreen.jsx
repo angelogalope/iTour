@@ -15,22 +15,36 @@ import supabase from '../utils/supabase';
 
 function MapScreen() {
   const [isLoading, setIsLoading] = useState(true);
-  const [ready, setReady] = useState(false);
   const [isAerialView, setIsAerialView] = useState(false);
   const [cameraPosition, setCameraPosition] = useState({ x: 0, y: 10, z: 0 });
   const [events, setEvents] = useState([]);
 
-  // Fetch events from Supabase
+  if (AFRAME) {
+    delete AFRAME.systems['arjs'];
+    delete AFRAME.components['arjs'];
+    delete AFRAME.components['arjs-camera'];
+    delete AFRAME.components['marker'];
+    delete AFRAME.components['gps-camera'];
+    delete AFRAME.components['location-based'];
+  }
+
+  // Fetch events from Supabase and filter by date
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const { data, error } = await supabase
           .from('events') // Replace 'events' with your table name
-          .select('id, title, x_coordinate, y_coordinate'); // Select relevant fields
+          .select('id, title, x_coordinate, y_coordinate, event_date'); // Include event_date
 
         if (error) throw error;
 
-        setEvents(data); // Set events in state
+        // Get the current date
+        const currentDate = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+
+        // Filter events where event_date is greater than or equal to today
+        const upcomingEvents = data.filter(event => event.event_date >= currentDate);
+
+        setEvents(upcomingEvents); // Set only upcoming events in state
       } catch (error) {
         console.error('Error fetching events:', error);
       }
@@ -39,22 +53,7 @@ function MapScreen() {
     fetchEvents();
   }, []);
 
-  useEffect(() => {
-      // Clean up AR.js globals *before* scene renders
-      if (AFRAME) {
-        delete AFRAME.systems['arjs'];
-        delete AFRAME.components['arjs'];
-        delete AFRAME.components['arjs-camera'];
-        delete AFRAME.components['marker'];
-        delete AFRAME.components['gps-camera'];
-        delete AFRAME.components['location-based'];
-      }
   
-      // Now it's safe to render the scene
-      setReady(true);
-    }, []);
-  
-
   useEffect(() => {
     // Remove AR.js system if it's globally registered
     if (AFRAME && AFRAME.systems['arjs']) {
@@ -155,7 +154,7 @@ function MapScreen() {
       const timeoutId = setTimeout(() => {
         console.warn('Model loading timed out');
         setIsLoading(false);
-      }, 30000); // 15 seconds timeout
+      }, 60000);
 
       return () => {
         modelEntity.removeEventListener('model-loaded', handleModelLoaded);
@@ -189,16 +188,14 @@ function MapScreen() {
     }
   };
 
-  if (!ready) return <div>Preparing CSU 3D Tour...</div>;
-
   return (
     <div className="h-screen flex flex-col items-center justify-center relative">
       {/* Loading Screen */}
       {isLoading ? (
         <div className="absolute inset-0 bg-primGreen flex flex-col items-center justify-center z-50">
           <div className="flex text-white text-md">Loading 3D Map...<BsPersonWalking className="animate-walking text-white pb-1" size={24} /></div>
-        </div>
-      ) : (
+        </div> 
+       ) : (
         <div>
           {/* Back Button */}
           <button onClick={handleBack} className="absolute top-14 left-6 p-4 rounded-full shadow-slate-800 shadow-md flex bg-white z-50">
@@ -207,10 +204,10 @@ function MapScreen() {
 
           {/* Top-Right Menu */}
           <div className="absolute flex flex-col top-14 right-6 shadow-slate-800 shadow-lg z-50 rounded-xl">
-            <button onClick={handleBack} className="bg-white p-4 rounded-t-xl border-b text-lg">
+            {/* <button onClick={handleBack} className="bg-white p-4 rounded-t-xl border-b text-lg">
               <IoInformation />
-            </button>
-            <button onClick={toggleView} className="bg-white p-4 border-b text-lg">
+            </button> */}
+            <button onClick={toggleView} className="bg-white p-4  rounded-t-xl border-b text-lg">
               {isAerialView ? <BsPersonWalking /> : <IoEyeOutline />}
             </button>
             <button onClick={handleGate} className="bg-white p-4 rounded-b-xl text-lg">
@@ -279,10 +276,12 @@ function MapScreen() {
           shadow="receive: true"
         ></a-plane>
 
-        {/* 3D Model */}
         <a-entity
           ref={modelRef}
-          obj-model="obj: url(/src/assets/CSU1.obj); mtl: url(/src/assets/CSU1.mtl)"
+          // obj-model="obj: url(/src/assets/CSU1.obj); mtl: url(/src/assets/CSU1.mtl)"
+          // gltf-model="url(/src/assets/CSU2.gltf)"
+          gltf-model="url(/src/assets/CSU1.glb)"
+          // obj-model="url(/src/assets/CSU1.usdz)"
           position="-345 0 12"
           rotation="0 -2 0"
           scale="2.5 2 2.6"

@@ -18,7 +18,7 @@ export default function SearchMenu({ onBuildingSelect }) {
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
     api.start({
-      height: isExpanded ? 12 : 90, // Expand to almost full screen height
+      height: isExpanded ? 12 : 70, // Expand to almost full screen height
     });
   };
 
@@ -35,14 +35,14 @@ export default function SearchMenu({ onBuildingSelect }) {
           api.start({ height: 12 });
         } else if (my < -50) {
           setIsExpanded(true);
-          api.start({ height: 90 });
+          api.start({ height: 70 });
         } else {
           // Snap back to the current state if drag is insignificant
-          api.start({ height: isExpanded ? 90 : 12 });
+          api.start({ height: isExpanded ? 70 : 12 });
         }
       } else {
         // Update height dynamically during drag
-        api.start({ height: Math.max(12, Math.min(90, memo - my / 10)) });
+        api.start({ height: Math.max(12, Math.min(70, memo - my / 10)) });
       }
       return memo;
     }
@@ -70,12 +70,12 @@ export default function SearchMenu({ onBuildingSelect }) {
       }}
       className="absolute bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl w-full"
     >
-      <div className="flex flex-col items-center gap-2 p-4">
+      <div className="flex flex-col items-center gap-t-2 p-4">
         {/* Drag handle */}
         <hr className="border-4 rounded-full w-28 border-gray-300 cursor-pointer" />
 
         {/* Search input */}
-        <div className="flex items-center w-full bg-gray-200 rounded-xl p-4 mb-6">
+        <div className="flex items-center w-full bg-gray-200 rounded-xl p-4 mt-4">
           <FaMagnifyingGlass className="text-gray-400 mr-2" size={20} />
           <input
             type="text"
@@ -90,7 +90,7 @@ export default function SearchMenu({ onBuildingSelect }) {
         </div>
 
         {/* Content area for search results */}
-        <div className="w-full flex-grow overflow-y-auto">
+        <div className="w-full flex-grow overflow-y-auto h-96 pt-2">
           {filteredBuildings.length > 0 ? (
             filteredBuildings.map((building) => (
               <div
