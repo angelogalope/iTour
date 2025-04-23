@@ -88,8 +88,8 @@ function MapScreen() {
 
         // Temporarily disable look-controls
         cameraRigRef.current.setAttribute('look-controls', 'enabled', false);
-
-        // Set initial camera position
+  
+        // Set the initial position of the camera
         const initialPosition = { x: -2610, y: 10, z: -87 };
         setCameraPosition(initialPosition);
         cameraRigRef.current.object3D.position.set(
@@ -276,6 +276,7 @@ function MapScreen() {
           shadow="receive: true"
         ></a-plane>
 
+        {/* 3D Model */}
         <a-entity
           ref={modelRef}
           // obj-model="obj: url(/src/assets/CSU1.obj); mtl: url(/src/assets/CSU1.mtl)"
