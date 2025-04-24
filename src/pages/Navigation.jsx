@@ -2,17 +2,28 @@ import React, { useState, useEffect } from 'react';
 import ARView from './components/ARView';
 // import { Button } from '@/components/ui/button';
 import { predefinedDestinations } from '../utils/navigationUtils';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 
 function Navigation() {
   const [selectedDestination, setSelectedDestination] = useState(null);
   const [distance, setDistance] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation()
 
   const handleBackBtn = () => {
     navigate("/dashboard");
   }
+
+  useEffect(() => {
+    if (location.state && location.state.coordinates) {
+        setSelectedDestination({
+            label: location.state.coordinates.name,
+            lat: location.state.coordinates.lat,
+            lng: location.state.coordinates.lng,
+        });
+    }
+}, [location]);
   
   // Setup global callback for distance updates from ARView
   useEffect(() => {
@@ -63,7 +74,7 @@ function Navigation() {
           {selectedDestination && (
             <div className="mt-2 text-white bg-blue-600/70 p-3 rounded-md">
               <div className="flex items-center justify-between">
-                <p className="font-bold text-lg">Navigating to: {selectedDestination.name}</p>
+                <p className="font-bold text-lg">Navigating to: {selectedDestination.name || location.state.coordinates.name}</p>
                 {distance && (
                   <div className="bg-white/20 px-3 py-1 rounded-full text-sm">
                     {Math.round(distance)}m away

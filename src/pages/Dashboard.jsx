@@ -12,16 +12,19 @@ export default function Dashboard() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [activePage, setActivePage] = useState('dashboard');
   const [searchQuery, setSearchQuery] = useState('');
-  const [showWarning, setShowWarning] = useState(true);
+  const [showWarning, setShowWarning] = useState(
+    () => !sessionStorage.getItem('hasSeenWarning')
+  );
 
   useEffect(() => {
-    // Set a timeout to show the warning after 5 seconds
-    const warningTimeout = setTimeout(() => {
-      setShowWarning(true);
-    }, 5000);
+    const hasSeenWarning = sessionStorage.getItem('hasSeenWarning');
+    if (!hasSeenWarning) {
+      const warningTimeout = setTimeout(() => {
+        setShowWarning(true);
+      }, 5000);
 
-    // Cleanup the timeout when the component unmounts
-    return () => clearTimeout(warningTimeout);
+      return () => clearTimeout(warningTimeout);
+    }
   }, []);
 
   const handleSideBar = () => {
@@ -43,17 +46,19 @@ export default function Dashboard() {
   }
 
   const closeWarning = () => {
+    sessionStorage.setItem('hasSeenWarning', 'true');
     setShowWarning(false);
   };
+
 
   return (
     <div className="bg-primWhite min-h-screen w-full flex flex-col pb-28">
       {showWarning && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white/70 p-6 rounded-lg shadow-lg text-center text-sm max-w-md mx-4">
-            <h2 className="text-xl font-bold mb-4">AR/VR Caution</h2>
+          <div className="bg-white/80 p-6 rounded-lg shadow-lg text-center text-sm max-w-md mx-4">
+            <h2 className="text-xl font-bold mb-4 text-orange-500">AR/VR Caution</h2>
             <p className="mb-4">
-              Please be aware that using AR and VR features may cause motion sickness, dizziness, or eye strain. 
+              Please be aware that using AR and VR features may cause motion sickness, dizziness, or eye strain.
               Ensure you are in a safe environment and take breaks if needed.
             </p>
             <button
