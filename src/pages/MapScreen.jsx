@@ -8,7 +8,7 @@ import { GiOpenGate } from "react-icons/gi";
 import { BsPersonWalking } from "react-icons/bs";
 import nipplejs from 'nipplejs';
 import * as THREE from 'three';
-import Restrict from './components/Restrict';
+import Restrict from './components/restrict';
 import { useNavigate } from 'react-router';
 import SearchMenu from './components/SearchMenu';
 import supabase from '../utils/supabase';
