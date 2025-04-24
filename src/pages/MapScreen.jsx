@@ -19,6 +19,8 @@ function MapScreen() {
   const [cameraPosition, setCameraPosition] = useState({ x: 0, y: 10, z: 0 });
   const [events, setEvents] = useState([]);
 
+  const rafRef = useRef();
+
   if (AFRAME) {
     delete AFRAME.systems['arjs'];
     delete AFRAME.components['arjs'];
@@ -133,6 +135,18 @@ function MapScreen() {
           }
         });
 
+        const tick = () => {
+          const position = cameraRigRef.current.object3D.position;
+          setCameraPosition({
+            x: position.x,
+            y: position.y,
+            z: position.z,
+          });
+          rafRef.current = requestAnimationFrame(tick);
+        };
+
+        tick();
+
         return () => {
           cameraRigRef.current.removeEventListener('componentchanged', updatePosition);
         };
@@ -228,11 +242,11 @@ function MapScreen() {
             />
           </div>
 
-          {/* <div className="absolute bottom-20 left-6 bg-white p-2 rounded-md shadow-md z-50">
+          <div className="absolute bottom-20 left-6 bg-white p-2 rounded-md shadow-md z-50">
             <p className="text-sm font-mono">
               X: {cameraPosition.x}, Y: {cameraPosition.y}, Z: {cameraPosition.z}
             </p>
-          </div> */}
+          </div>
         </div>
       )}
     
@@ -274,7 +288,6 @@ function MapScreen() {
           repeat="1 1"
           shadow="receive: true"
           material="src: url(/src/assets/csu-ss.png)"
-          // src="/src/assets/csu-ss.png"  
         ></a-plane>
 
         {/* 3D Model */}
@@ -302,9 +315,9 @@ function MapScreen() {
               animation="property: position; to: 0 10 0; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true"
             >
               <a-entity
-                obj-model="obj: url(/src/assets/pinpoint.obj)" // Only the .obj file
-                material="color: red; shader: standard; roughness: 0.5; metalness: 0.2" // Custom material
-                scale="10 10 10" // Adjust the scale as needed
+                obj-model="obj: url(/src/assets/pinpoint.obj)"
+                material="color: red; shader: standard; roughness: 0.5; metalness: 0.2"
+                scale="10 10 10"
                 look-at="#camera-rig"
               ></a-entity>
 

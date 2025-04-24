@@ -138,7 +138,7 @@ const smoothBearing = useRef(0);
       if (userLocation && destination) {
         updateArrowRotation();
       }
-    }, 200); // Update every 200ms
+    }, 5); // Update every 200ms
     
     // Clean up when component unmounts
     return () => {
@@ -282,7 +282,7 @@ const smoothBearing = useRef(0);
             ref={arrowRef}
             id="navigation-arrow"
             position="0 -0.999 -5"
-            navigation-arrow="color: #0066ff; size: 1; bearing: 0"
+            navigation-arrow="color: #0066ff; size: 1; bearing: 0;"
           ></a-entity>
           
           {/* Distance indicator (text)
