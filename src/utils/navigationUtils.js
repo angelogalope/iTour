@@ -10,7 +10,7 @@ const ORS_API_KEY = "5b3ce3597851110001cf6248276939268e9446dea8be4a8c3b6d7214";
 
 /**
  * Get directions between two points using OpenRouteService
- * @param {Object} start - Starting coordinates {lat, lng}
+ * @param {Object} start - Starting coordinates {lat, lng}openrouteservice-js
  * @param {Object} end - Destination coordinates {lat, lng}
  * @returns {Promise} - Promise resolving to route data
  */

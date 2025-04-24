@@ -242,11 +242,11 @@ function MapScreen() {
             />
           </div>
 
-          <div className="absolute bottom-20 left-6 bg-white p-2 rounded-md shadow-md z-50">
+          {/* <div className="absolute bottom-20 left-6 bg-white p-2 rounded-md shadow-md z-50">
             <p className="text-sm font-mono">
               X: {cameraPosition.x}, Y: {cameraPosition.y}, Z: {cameraPosition.z}
             </p>
-          </div>
+          </div> */}
         </div>
       )}
     

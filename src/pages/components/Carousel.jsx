@@ -11,7 +11,7 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL; // Replace with your Supa
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY; // Replace with your Supabase anon key
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const Carousel = () => {
+const Carousel = ({ searchQuery }) => {
 	const [loading, setLoading] = useState(true);
 	const [items, setItems] = useState([]);
 	const [currentSlide, setCurrentSlide] = useState(0); // Track current slide
@@ -43,17 +43,27 @@ const Carousel = () => {
 		fetchData();
 	}, []);
 
+	// Filter items based on searchQuery
+    const filteredItems = items.filter((item) => {
+        if (!searchQuery) return true; // If no search query, show all items
+        const lowerCaseQuery = searchQuery.toLowerCase();
+        return (
+            item.building_name?.toLowerCase().includes(lowerCaseQuery) ||
+            item.formal_name?.toLowerCase().includes(lowerCaseQuery)
+        );
+    });
+
 	const settings = {
 		dots: true,
-		infinite: items.length > 1,
+		infinite: filteredItems.length > 1,
 		speed: 500,
 		slidesToShow: 1,
 		slidesToScroll: 1,
-		autoplay: items.length > 1,
+		autoplay: filteredItems.length > 1,
 		autoplaySpeed: 3000,
 		beforeChange: (current, next) => setCurrentSlide(next), // Update current slide
 		appendDots: dots => {
-			const totalSlides = items.length; // Total number of slides
+			const totalSlides = filteredItems.length; // Total number of slides
 			const visibleDots = 4; // Change this to 3 if needed
 			let adjustedCurrentSlide = currentSlide;
 
@@ -91,8 +101,8 @@ const Carousel = () => {
 	return (
 		<div className="w-full">
 			<Slider {...settings}>
-				{items.length > 0 ? ( // Check if there are items
-					items.map((item) => (
+				{filteredItems.length > 0 ? ( // Check if there are items
+					filteredItems.map((item) => (
 						<div key={item.id} className="flex justify-center px-6">
 							<div
 								className="relative p-4 rounded-3xl shadow-lg bg-cover bg-center h-64 flex flex-col justify-end"
