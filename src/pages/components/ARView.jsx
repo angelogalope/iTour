@@ -182,16 +182,16 @@ const smoothBearing = useRef(0);
     // Android/other devices
     else if (typeof deviceOrientationRef.current.alpha === 'number') {
       // Invert alpha and adjust for screen orientation
-      compassHeading = (360 - deviceOrientationRef.current.alpha) % 360;
+      compassHeading = (360 - deviceOrientationRef.current.alpha);
   
       // Adjust for screen orientation (portrait or landscape)
       if (window.screen?.orientation?.angle) {
-        compassHeading = (compassHeading + window.screen.orientation.angle) % 360;
+        compassHeading = (compassHeading + window.screen.orientation.angle);
       }
   
       // Additional adjustment for Android-specific quirks
       if (navigator.userAgent.match(/Android/i)) {
-        compassHeading = (compassHeading + 180) % 360; // Flip 180 degrees for Android
+        compassHeading = (compassHeading + 180); // Flip 180 degrees for Android
       }
     }
   

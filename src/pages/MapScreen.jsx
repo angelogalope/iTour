@@ -271,18 +271,16 @@ function MapScreen() {
           rotation="-90 180 0"
           width="270"
           height="120"
-          color="gray"
           repeat="1 1"
           shadow="receive: true"
+          material="src: url(/src/assets/csu-ss.png)"
+          // src="/src/assets/csu-ss.png"  
         ></a-plane>
 
         {/* 3D Model */}
         <a-entity
           ref={modelRef}
-          // obj-model="obj: url(/src/assets/CSU1.obj); mtl: url(/src/assets/CSU1.mtl)"
-          // gltf-model="url(/src/assets/CSU2.gltf)"
-          gltf-model="url(/src/assets/CSU1.glb)"
-          // obj-model="url(/src/assets/CSU1.usdz)"
+          gltf-model="url(/src/assets/CSU4.glb)"
           position="-345 0 12"
           rotation="0 -2 0"
           scale="2.5 2 2.6"

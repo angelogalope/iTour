@@ -96,7 +96,7 @@ export const calculateDistance = (startLat, startLng, destLat, destLng) => {
 
 // Sample predefined destinations data
 export const predefinedDestinations = [
-  { name: "St. Anthony of Padua Parish", lat: 8.828503, lng: 125.691453 },
+  // { name: "St. Anthony of Padua Parish", lat: 8.828503, lng: 125.691453 },
   { name: "CSU  Main Gate", lat: 8.959493, lng: 125.596513 },
   { name: "CSU  Green Gate", lat: 8.957209, lng: 125.598723 },
   { name: "CSU Library - Hero Learning Commons", lat: 8.95785, lng: 125.596443 },
