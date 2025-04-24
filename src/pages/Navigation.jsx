@@ -41,7 +41,7 @@ function Navigation() {
             <label htmlFor="destination-select" className="text-white font-medium text-lg">
               Select Destination
             </label>
-            <button onClick={handleBackBtn} size="sm" variant="outline" className="text-xs bg-white/10 hover:bg-white/20 text-white">
+            <button onClick={handleBackBtn} size="sm" variant="outline" className="text-xs p-2 rounded-full bg-white/10 hover:bg-white/20 text-white">
               Back to Home
             </button>
           </div>
