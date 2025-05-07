@@ -2,78 +2,78 @@ export default [
     {
         id: 1,
         building: 'Iwag Hall - College of Education',
-        xCoord: -2511.1994035185458,
-        yCoord: 10,
-        zCoord: -223.77246266743705
+        xCoord: -361.151915431867,
+        yCoord: 1.5,
+        zCoord: 34.346063849315854
     },
     {
         id: 2,
         building: 'College of Agriculture and Agri-Industries',
-        xCoord: -2523.367590358962,
-        yCoord: 10,
-        zCoord: 330.0824063800883
+        xCoord: -353.0546533274196,
+        yCoord: 1.5,
+        zCoord: 121.30593723276345
     },
     {
         id: 3,
         building: 'Batok Hall - College of Mathematics and Natural Sciences',
-        xCoord: -1583.4752461981357,
-        yCoord: 10,
-        zCoord: -95.42621688705691
+        xCoord: -198.22273902891067,
+        yCoord: 1.5,
+        zCoord: 18.338651222621415
     },
     {
         id: 4,
         building: 'CSU Library - H.E.R.O. Learning Commons',
-        xCoord: -1438.0662045335148,
-        yCoord: 10,
-        zCoord: 115.64919279409207
+        xCoord: -172.86331132988997,
+        yCoord: 1.5,
+        zCoord: 51.06968670528483
     },
     {
         id: 5,
         building: 'New Admin Building',
-        xCoord: -1072.4165577100937,
-        yCoord: 10,
-        zCoord: -156.1450931399467
+        xCoord: -117.05759727991166,
+        yCoord: 1.5,
+        zCoord: 3.38086548571054
     },
     {
         id: 6,
         building: 'Old CAS Building',
-        xCoord: -304.9325197708933,
-        yCoord: 10,
-        zCoord: 356.46296488740586
+        xCoord: 43.72393276156612,
+        yCoord: 1.5,
+        zCoord: 55.61621864173414
     },
     {
         id: 7,
         building: 'Kinaadman Hall - College of Humanities and Social Sciences',
-        xCoord: -308.81254464420505,
-        yCoord: 10,
-        zCoord: -186.71095990184125
+        xCoord: 23.098883021754414,
+        yCoord: 1.5,
+        zCoord: -32.55184392205694
     },
     {
         id: 8,
         building: 'Hiraya Hall - College of Computing and Information Sciences',
-        xCoord: 161.46239743153865,
-        yCoord: 10,
-        zCoord: -159.7267861984383
+        xCoord: 89.28239367292362,
+        yCoord: 1.5,
+        zCoord: -47.778460568839265
     },
     {
         id: 9,
         building: 'Hinang Hall - College of Engineering and Geosciences',
-        xCoord: 412.1409938418135,
-        yCoord: 10,
-        zCoord: -148.94770970742226
+        xCoord: 132.48279131686368,
+        yCoord: 1.5,
+        zCoord: -59.04635743707626
     },
     {
         id: 10,
         building: 'Villares - College of Forestry and Environmental Sciences',
-        xCoord: 1262.8738372700793,
-        yCoord: 10,
-        zCoord: 134.34555714686624
+        xCoord: 249.77474938300702,
+        yCoord: 1.5,
+        zCoord: -42.25233487857784
     },
     {
         id: 11,
         building: 'CSU Gymnasium',
-        xCoord: -479.0484232517054,
-        yCoord: 10,
-        zCoord: 588.6645918620279
+        xCoord: 24.284447172846665,
+        yCoord: 1.5,
+        zCoord: 109.20834152590295
     },
 ]

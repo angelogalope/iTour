@@ -2071,6 +2071,10 @@ ar.js@^2.2.2:
   resolved "https://registry.yarnpkg.com/ar.js/-/ar.js-2.2.2.tgz#4d9698ec8e479c10ae7a4b3268076523a141626e"
   integrity sha512-ThNE9oOGcosmMRKVkkKgHgHhDpLKXikLkFGCviAka5L3GAP3mpU1S5xJ9UWviJDncfzDfyezDCGe+bm321nyqQ==
 
+"ar.js@github:jeromeetienne/AR.js":
+  version "2.2.2"
+  resolved "https://codeload.github.com/jeromeetienne/AR.js/tar.gz/024318c67121bd57045186b83b42f10c6560a34a"
+
 arg@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/arg/-/arg-5.0.2.tgz#c81433cc427c92c4dcf4865142dbca6f15acd59c"

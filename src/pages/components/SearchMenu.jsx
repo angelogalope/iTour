@@ -61,7 +61,7 @@ export default function SearchMenu({ onBuildingSelect }) {
         height: height.to((h) => `${h}%`),
         touchAction: "none",
       }}
-      className="absolute bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl w-full"
+      className="absolute bottom-14 left-0 right-0 z-50 bg-white rounded-t-3xl w-full"
     >
       <div className="flex flex-col items-center gap-t-2 p-4">
         <hr className="border-4 rounded-full w-28 border-gray-300 cursor-pointer" />

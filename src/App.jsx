@@ -14,6 +14,7 @@ import EventList from "./pages/EventList";
 import Settings from "./pages/Settings";
 import TourScreen from "./pages/TourScreen";
 import Navigation from "./pages/Navigation";
+import ARScene from "./pages/components/ARScene";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -41,6 +42,7 @@ function App() {
           <Route path="/eventlist" element={<EventList />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/navigation" element={<Navigation />} />
+          <Route path="/ar-scene" element={<ARScene />} />
         </Routes>
       )}
 

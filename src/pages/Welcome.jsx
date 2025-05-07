@@ -5,7 +5,7 @@ export default function Welcome() {
   const navigate = useNavigate();
 
   const handleBtn = () => { 
-    navigate("/dashboard");
+    navigate("/mapscreen");
   };
 
   return (
