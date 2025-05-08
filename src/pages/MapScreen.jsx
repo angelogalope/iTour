@@ -441,7 +441,7 @@ function MapScreen() {
         {events.map((event) => (
           <a-entity 
             key={event.id} 
-            position={`${event.x_coordinate} 70 ${event.y_coordinate}`}
+            position={`${event.x_coordinate} 20 ${event.y_coordinate}`}
           >
             <a-entity
               animation="property: position; to: 0 10 0; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true"
@@ -449,7 +449,7 @@ function MapScreen() {
               <a-entity
                 obj-model="obj: url(/src/assets/pinpoint.obj)"
                 material="color: red; shader: standard; roughness: 0.5; metalness: 0.2"
-                scale="10 10 10"
+                scale="2 2 2"
                 look-at="#camera-rig"
               ></a-entity>
 
@@ -458,7 +458,7 @@ function MapScreen() {
                 value={event.title}
                 align="center"
                 color="black"
-                position="0 35 0"
+                position="0 15 0"
                 scale="20 20 20"
                 look-at="#camera-rig"
               ></a-text>
