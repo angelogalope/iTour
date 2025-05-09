@@ -160,44 +160,6 @@ function MapScreen() {
     return () => cancelAnimationFrame(animationFrameId);
   }, [userLocation, isOnCampus, hasUserMovedManually]);
 
-  useEffect(() => {
-    const handleOrientation = (event) => {
-      const alpha = event.alpha; // 0 to 360 degrees
-      if (alpha == null) return;
-  
-      const compassHeading = 360 - alpha; // Adjust based on your model's orientation
-      if (isOnCampus && cameraRigRef.current) {
-        const rotationRad = THREE.MathUtils.degToRad(compassHeading);
-        cameraRigRef.current.object3D.rotation.set(
-          0,
-          rotationRad,
-          0
-        );
-  
-        const lookControls = cameraRigRef.current.components['look-controls'];
-        if (lookControls) {
-          lookControls.yawObject.rotation.y = rotationRad;
-        }
-      }
-    };
-  
-    if (window.DeviceOrientationEvent && typeof window.DeviceOrientationEvent.requestPermission === 'function') {
-      // iOS 13+ requires permission
-      window.DeviceOrientationEvent.requestPermission().then(permissionState => {
-        if (permissionState === 'granted') {
-          window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-        }
-      }).catch(console.error);
-    } else {
-      // Non-iOS
-      window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-    }
-  
-    return () => {
-      window.removeEventListener('deviceorientationabsolute', handleOrientation);
-    };
-  }, [isOnCampus]);
-
   useEffect(() => {  
     if (cameraRigRef.current) {
       const scene = document.querySelector('a-scene');
@@ -427,6 +389,84 @@ function MapScreen() {
           gltf-model="url(/src/assets/CSU5.glb)"
           position="10 0 -2"
           // position="55 0 -255"
+          rotation="0 -350 0"
+          scale="0.43 0.4 0.42"
+        ></a-entity>
+
+        <a-entity
+          gltf-model="url(/src/assets/CED.glb)"
+          position="-351 0 5"
+          rotation="0 -350 0"
+          scale="0.43 0.4 0.42"
+        ></a-entity>
+        
+        <a-entity
+          gltf-model="url(/src/assets/FTC.glb)"
+          position="-303 0 75"
+          rotation="0 -350 0"
+          scale="0.43 0.4 0.42"
+        ></a-entity>
+        
+        <a-entity
+          gltf-model="url(/src/assets/CMNS-Canteen_and_LSG_Office.glb)"
+          position="-265 0 -15"
+          rotation="0 -350 0"
+          scale="0.43 0.4 0.42"
+        ></a-entity>
+        
+        <a-entity
+          gltf-model="url(/src/assets/BatokHall.glb)"
+          position="-205 0 -34"
+          rotation="0 -350 0"
+          scale="0.5 0.4 0.49"
+        ></a-entity>
+        
+        <a-entity
+          gltf-model="url(/src/assets/Motorpoll.glb)"
+          position="-135 0 -120"
+          rotation="0 -350 0"
+          scale="0.33 0.4 0.32"
+        ></a-entity>
+
+        <a-entity
+          gltf-model="url(/src/assets/Guidance_and_Registrar.glb)"
+          position="1 0 -4"
+          rotation="0 -350 0"
+          scale="0.38 0.4 0.37"
+        ></a-entity>
+        
+        <a-entity
+          gltf-model="url(/src/assets/CAA-canteen.glb)"
+          position="-330 0 116"
+          rotation="0 -350 0"
+          scale="0.43 0.4 0.42"
+        ></a-entity>
+        
+        <a-entity
+          gltf-model="url(/src/assets/CAA.glb)"
+          position="-330 0 150"
+          rotation="0 -350 0"
+          scale="0.43 0.4 0.42"
+        ></a-entity>
+        
+        
+        <a-entity
+          gltf-model="url(/src/assets/Kinaadman.glb)"
+          position="4 0 -12"
+          rotation="0 -350 0"
+          scale="0.4 0.4 0.39"
+        ></a-entity>
+        
+        <a-entity
+          gltf-model="url(/src/assets/CAS.glb)"
+          position="12 0 5"
+          rotation="0 -350 0"
+          scale="0.36 0.25 0.35"
+        ></a-entity>
+
+        <a-entity
+          gltf-model="url(/src/assets/Hinang.glb)"
+          position="8 0 -4"
           rotation="0 -350 0"
           scale="0.43 0.4 0.42"
         ></a-entity>
