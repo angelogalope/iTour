@@ -4,16 +4,97 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEye, faBook, faSearch, faEllipsisH, faArrowLeft, } from '@fortawesome/free-solid-svg-icons';
 import "aframe";
 import "aframe-extras";
+import nipplejs from "nipplejs";
 
 const TourScreen = () => {
+  const [imageSrc, setImageSrc] = useState("/images/gate.jpg");
+  // const lastTapRef = useRef(0);
   const navigate = useNavigate();
-        
+
+  // const playerRef = useRef(null);
+  // const joystickContainerRef = useRef(null);
+  // const joystickManagerRef = useRef(null);
+
   const handleBack = () => {
     navigate(-1);
   }
 
-  const [imageSrc, setImageSrc] = useState("/images/gate.jpg");
-  const lastTapRef = useRef(0);
+  if (AFRAME) {
+    delete AFRAME.systems['arjs'];
+    delete AFRAME.components['arjs'];
+    delete AFRAME.components['arjs-camera'];
+    delete AFRAME.components['marker'];
+    delete AFRAME.components['gps-camera'];
+    delete AFRAME.components['location-based'];
+  }
+
+  // useEffect(() => {
+  //   const player = playerRef.current;
+  //   if (!player || !joystickContainerRef.current) {
+  //     console.error("Player or joystick container not found!");
+  //     return;
+  //   }
+  
+  //   // Initialize the joystick
+  //   const joystickManager = nipplejs.create({
+  //     zone: joystickContainerRef.current,
+  //     mode: 'static',
+  //     position: { left: '50%', bottom: '20%' },
+  //     color: 'blue',
+  //   });
+  //   joystickManagerRef.current = joystickManager;
+  
+  //   let direction = { x: 0, z: 0 }; // Track joystick direction
+  
+  //   // Handle joystick move event
+  //   joystickManager.on('move', (evt, data) => {
+  //     const forward = data.vector.y; // Forward/backward
+  //     const turn = data.vector.x;   // Left/right
+  //     direction = {
+  //       x: turn * 0.05, // Scale down for smoother movement
+  //       z: -forward * 0.05,
+  //     };
+  //     console.log("Joystick Move:", direction); // Debug log
+  //   });
+  
+  //   // Handle joystick end event (stop movement)
+  //   joystickManager.on('end', () => {
+  //     direction = { x: 0, z: 0 }; // Reset direction
+  //     console.log("Joystick End"); // Debug log
+  //   });
+  
+  //   // Update player position based on joystick input
+  //   const interval = setInterval(() => {
+  //     if (!player) return;
+  //     const position = player.getAttribute("position");
+  //     const newX = position.x + direction.x;
+  //     const newZ = position.z + direction.z;
+  //     player.setAttribute("position", { x: newX, y: position.y, z: newZ });
+  //     console.log("Player Position:", { x: newX, y: position.y, z: newZ }); // Debug log
+  //   }, 100);
+  
+  //   // Cleanup
+  //   return () => {
+  //     clearInterval(interval);
+  //     joystickManager.destroy(); // Clean up joystick
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   // Clean up AR.js globals *before* scene renders
+  //   if (AFRAME) {
+  //     delete AFRAME.systems['arjs'];
+  //     delete AFRAME.components['arjs'];
+  //     delete AFRAME.components['arjs-camera'];
+  //     delete AFRAME.components['marker'];
+  //     delete AFRAME.components['gps-camera'];
+  //     delete AFRAME.components['location-based'];
+  //   }
+
+  //   // Now it's safe to render the scene
+  //   setReady(true);
+  // }, []);
+
 
   useEffect(() => {
     const player = document.getElementById("rig");
@@ -48,7 +129,7 @@ const TourScreen = () => {
           setImageSrc("/images/gate-ced.jpg");
           resetPosition(player, 20);
         }
-        if (position.z < -5) {
+        if (position.z < -5 && position.x < -3) {
           setImageSrc("/images/gate-caa.jpg");
           resetPosition(player, 120);
         }
@@ -880,18 +961,18 @@ const TourScreen = () => {
     };
   }, []);
 
-  const handleTap = (event) => {
-    const currentTime = new Date().getTime();
-    const tapGap = currentTime - lastTapRef.current;
+  // const handleTap = (event) => {
+  //   const currentTime = new Date().getTime();
+  //   const tapGap = currentTime - lastTapRef.current;
 
-    if (tapGap < 300 && tapGap > 50) {
-      // Double tap detected
-      const newImageSrc = event.target.getAttribute("data-image");
-      setImageSrc(newImageSrc);
-    }
+  //   if (tapGap < 300 && tapGap > 50) {
+  //     // Double tap detected
+  //     const newImageSrc = event.target.getAttribute("data-image");
+  //     setImageSrc(newImageSrc);
+  //   }
 
-    lastTapRef.current = currentTime;
-  };
+  //   lastTapRef.current = currentTime;
+  // };
 
   return (
     <div className="relative w-full h-screen">
@@ -904,11 +985,12 @@ const TourScreen = () => {
 
         <a-entity
           id="rig"
+          // ref={playerRef}
           position="0 1.6 0"
           movement-controls="fly: false"
           rotation="0 90 0"
         >
-          <a-entity camera look-controls wasd-controls="acceleration: 120" animation="property: position; from: 0 1.6 0; to: 5 1.6 -5; dur: 5000; easing: linear; loop: true">
+          <a-entity camera look-controls  wasd-controls="acceleration: 120" animation="property: position; from: 0 1.6 0; to: 5 1.6 -5; dur: 5000; easing: linear; loop: true">
             {/* Custom Cursor */}
             <a-entity
               id="cursor"
@@ -927,7 +1009,7 @@ const TourScreen = () => {
           material="color: green; opacity: 0.5"
           position="-290 -0.9 10"
           rotation="0 90 0"
-          data-image="/images/inside-gate.jpg"
+          
           >
             <a-text
               value="Welcome to Caraga State University!"
@@ -949,7 +1031,7 @@ const TourScreen = () => {
             material="color: red; opacity: 0.5"
             position="290 -0.9 -0.9"
             rotation="0 -90 0"
-            data-image="/images/inside-gate.jpg"
+            
             >
               <a-text
                 value="Thank you for visiting Caraga State University!"
@@ -966,7 +1048,7 @@ const TourScreen = () => {
             material="color: green; opacity: 0.5"
             position="-300 -0.9 -300"
             rotation="0 40 0"
-            data-image="/images/inside-gate.jpg"
+            
             >
               <a-text
                 value="This way to the College of Agriculture and Agri-Industries!"
@@ -983,7 +1065,7 @@ const TourScreen = () => {
             material="color: green; opacity: 0.5"
             position="-170 -0.9 300"
             rotation="0 -210 0"
-            data-image="/images/inside-gate.jpg"
+            
             >
               <a-text
                 value="This way to the College of Education!"
@@ -1006,7 +1088,7 @@ const TourScreen = () => {
             material="color: red; opacity: 0.5"
             position="300 -0.9 300"
             rotation="0 -130 0"
-            data-image="/images/inside-gate.jpg"
+            
             >
               <a-text
                 value="This way to the Main Gate!"
@@ -1023,7 +1105,7 @@ const TourScreen = () => {
             material="color: green; opacity: 0.5"
             position="400 -0.9 -90.9"
             rotation="0 -90 0"
-            data-image="/images/inside-gate.jpg"
+            
             >
               <a-text
                 value="This way to the College of Agriculture and Agri-Industries!"
@@ -1040,7 +1122,7 @@ const TourScreen = () => {
             material="color: green; opacity: 0.5"
             position="-400 -0.9 70"
             rotation="0 90 0"
-            data-image="/images/inside-gate.jpg"
+            
             >
               <a-text
                 value="Welcome to the College of Education!"
@@ -1062,7 +1144,7 @@ const TourScreen = () => {
             material="color: green; opacity: 0.5"
             position="400 -0.9 70"
             rotation="0 -90 0"
-            data-image="/images/inside-gate.jpg"
+            
             >
               <a-text
                 value="Back to the Hallway"
@@ -1085,7 +1167,7 @@ const TourScreen = () => {
             material="color: red; opacity: 0.5"
             position="200 -0.9 -260"
             rotation="0 -50 0"
-            data-image="/images/inside-gate.jpg"
+            
             >
               <a-text
                 value="This way to Main Gate."
@@ -1102,7 +1184,7 @@ const TourScreen = () => {
               material="color: green; opacity: 0.5"
               position="380 -0.9 150"
               rotation="0 -100 0"
-              data-image="/images/inside-gate.jpg"
+              
               >
               <a-text
                 value="This way to the College of Education!"
@@ -1172,7 +1254,7 @@ const TourScreen = () => {
               material="color: green; opacity: 0.5"
               position="280 -0.9 150"
               rotation="0 -100 0"
-              data-image="/images/inside-gate.jpg"
+              
               >
               <a-text
                 value="Back to the Hallway!"
@@ -1226,7 +1308,7 @@ const TourScreen = () => {
               material="color: green; opacity: 0.5"
               position="380 -0.9 150"
               rotation="0 -100 0"
-              data-image="/images/inside-gate.jpg"
+              
               >
               <a-text
                 value="Back to the Hallway!"
@@ -1264,7 +1346,7 @@ const TourScreen = () => {
               material="color: green; opacity: 0.5"
               position="380 -0.9 150"
               rotation="0 -100 0"
-              data-image="/images/inside-gate.jpg"
+              
               >
               <a-text
                 value="Back to the College of Agriculture and Agri-Industries!"
@@ -1284,16 +1366,28 @@ const TourScreen = () => {
           geometry="primitive: plane; height: 1; width: 1"
           material="color: transparent; opacity: 0"
           position="-1 1.6 -3"
-          data-image="/images/gate-ced.jpg"
-        ></a-entity>
+                ></a-entity>
 
         <a-entity
           className="hotspot"
           geometry="primitive: plane; height: 1; width: 1"
           material="color: transparent; opacity: 0"
           position="1 1.6 -3"
-          data-image="/images/gate-caa.jpg"
-        ></a-entity> */}
+                ></a-entity> */}
+
+        {/* <div
+          ref={joystickContainerRef}
+          style={{
+            position: 'absolute',
+            width: '200px',
+            height: '200px',
+            left: '50%',
+            bottom: '20%',
+            transform: 'translateX(-50%)',
+            zIndex: 1000
+          }}
+        ></div> */}
+
       </a-scene>
     </div>
   );

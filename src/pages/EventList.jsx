@@ -4,63 +4,11 @@ import EventListSkeleton from './components/EventListSkeleton'; // Import the Sk
 import NavBar from './components/NavBar';
 import { useNavigate } from 'react-router';
 import { IoMdArrowRoundBack } from 'react-icons/io';
+import { mapToRealCoordinates } from '../utils/coordinateMapper'; // Import your mapping function
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
-
-// const events = [
-//   {
-//       id: 1,
-//       title: 'Festival Chinatown',
-//       date: 'Feb 12',
-//       location: 'Pontianak, Indonesia',
-//       image: 'path/to/image1.jpg', // Replace with actual image paths
-//   },
-//   {
-//       id: 2,
-//       title: 'Event Title 2',
-//       date: 'Mar 15',
-//       location: 'Location 2',
-//       image: 'path/to/image2.jpg',
-//   },
-//   {
-//       id: 3,
-//       title: 'Event Title 2',
-//       date: 'Mar 15',
-//       location: 'Location 2',
-//       image: 'path/to/image2.jpg',
-//   },
-//   {
-//       id: 4,
-//       title: 'Event Title 2',
-//       date: 'Mar 15',
-//       location: 'Location 2',
-//       image: 'path/to/image2.jpg',
-//   },
-//   {
-//       id: 5,
-//       title: 'Event Title 2',
-//       date: 'Mar 15',
-//       location: 'Location 2',
-//       image: 'path/to/image2.jpg',
-//   },
-//   {
-//       id: 6,
-//       title: 'Event Title 2',
-//       date: 'Mar 15',
-//       location: 'Location 2',
-//       image: 'path/to/image2.jpg',
-//   },
-//   {
-//       id: 7,
-//       title: 'Event Title 2',
-//       date: 'Mar 15',
-//       location: 'Location 2',
-//       image: 'path/to/image2.jpg',
-//   },
-//   // Add more events as needed
-// ];
 
 const EventList = () => {
     const navigate = useNavigate();
@@ -70,6 +18,16 @@ const EventList = () => {
 
     const handleBack = () => {
         navigate(-1);
+    };
+    const handleNavigateBtn = (event) => {
+        console.log(event.x_coordinate, event.y_coordinate);
+        const realCoordinates = mapToRealCoordinates(event.x_coordinate, event.y_coordinate);
+        if (realCoordinates) {
+            navigate('/navigation', { state: { coordinates: realCoordinates } });
+            console.log("Navigating to: ", realCoordinates);
+        } else {
+            console.error(`No real-world coordinates found for event: ${event.title}`);
+        }
     };
 
     const fetchEvents = async () => {
@@ -111,49 +69,9 @@ const EventList = () => {
         fetchEvents();
     }, []);
 
-    // const [events, setEvents] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
-
-    // useEffect(() => {
-    //     const fetchEvents = async () => {
-    //         setLoading(true);
-    //         const { data, error } = await supabase
-    //             .from('events')
-    //             .select('id, title, description, created_at, location, thumbnail');
-
-    //         if (error) {
-    //             console.error('Error fetching events:', error);
-    //             setError(error.message);
-    //         } else {
-    //             setEvents(data);
-    //         }
-    //         setLoading(false);
-    //     };
-
-    //     fetchEvents();
-    // }, []);
-
-    // if (loading) {
-    //     return (
-    //         <div>
-    //             <h1 className="text-2xl font-bold mb-4">Upcoming Events</h1>
-    //             <div className="flex flex-col gap-3">
-    //                 {[...Array(3)].map((_, index) => (
-    //                     <SkeletonLoader key={index} />
-    //                 ))}
-    //             </div>
-    //         </div>
-    //     );
-    // }
-
-    // if (error) {
-    //     return <div className="text-red-500 text-center">Error: {error}</div>;
-    // }
-
     if (loading || error) {
         return (
-            <div className="min-h-screen flex flex-col">
+            <div className="min-h-screen flex flex-col bg-white">
                 <div className="p-6">
                     <button onClick={handleBack}>
                         <IoMdArrowRoundBack size={32} /> 
@@ -180,7 +98,7 @@ const EventList = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col bg-white">
             <div className="p-6">
                 <button onClick={handleBack}>
                     <IoMdArrowRoundBack size={32} /> 
@@ -205,9 +123,11 @@ const EventList = () => {
                                 <p className="text-xs text-gray-400">{event.event_date}</p>
                             </div>
                             <div className="ml-auto flex flex-col items-end">
-                              <button className="mt-2 px-3 py-1 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600">
-                                  AR View
-                              </button>
+                                <button 
+                                    onClick={() => handleNavigateBtn(event)} 
+                                    className="mt-2 px-3 py-1 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600">
+                                    Navigate
+                                </button>
                             </div>
                         </div>
                     ))}

@@ -12,8 +12,9 @@ import Dashboard from "./pages/Dashboard";
 import Favorites from "./pages/Favorites";
 import EventList from "./pages/EventList";
 import Settings from "./pages/Settings";
-import ARView from "./pages/ARView";
 import TourScreen from "./pages/TourScreen";
+import Navigation from "./pages/Navigation";
+import ARScene from "./pages/components/ARScene";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -30,8 +31,7 @@ function App() {
         <Preloader />
       ) : (
         <Routes>
-          <Route path="/" element={<Languages />} />
-          <Route path="/features" element={<Features />} />
+          <Route path="/" element={<Features />} />
           <Route path="/permissions" element={<Permissions />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -41,7 +41,8 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/eventlist" element={<EventList />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/ar-view" element={<ARView />} />
+          <Route path="/navigation" element={<Navigation />} />
+          <Route path="/ar-scene" element={<ARScene />} />
         </Routes>
       )}
 

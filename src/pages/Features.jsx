@@ -60,7 +60,7 @@ const Features = () => {
 	}, [handleScroll]);
 
 	return (
-		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2 py-6 px-4">
+		<div className="flex flex-col items-center bg-primGreen h-screen justify-center gap-2 py-6">
 			{/* Slider Container */}
 			<div
 				ref={sliderRef}
@@ -69,11 +69,11 @@ const Features = () => {
 				{data.map((slide, index) => (
 					<div
 						key={index}
-						className="flex flex-col items-center snap-center justify-between pt-[90px] min-w-full px-6"
+						className="flex flex-col items-center snap-center justify-between pt-[40px] min-w-full px-6"
 					>
 						{/* Slide Content */}
 						<div className="text-center text-white">
-							<h1 className="text-3xl font-bold">{slide.title}</h1>
+							<h1 className="text-2xl font-bold">{slide.title}</h1>
 						</div>
 
 						{/* Image Section */}
@@ -81,14 +81,14 @@ const Features = () => {
 							<img src={slide.img} className="object-contain max-w-72" />
 						</div>
 						<div className="text-center text-white">
-							<p className=" text-lg">{slide.description}</p>
+							<p className=" text-md">{slide.description}</p>
 						</div>
 					</div>
 				))}
 			</div>
 
 			{/* Pagination Dots */}
-			<div className="flex space-x-2 mb-8 mt-4 px-6">
+			<div className="flex space-x-2 mb-6 mt-4 px-6">
 				{data.map((_, index) => (
 					<div
 						key={index}
@@ -102,7 +102,7 @@ const Features = () => {
 			</div>
 
 			{/* Continue Button */}
-			<div className="text-center w-screen px-6">
+			<div className="text-center w-screen px-6 mb-20">
 				<button
 					className="bg-primYellow w-full max-w-md py-3 rounded-full font-bold text-xl text-black"
 					onClick={handleNext}
