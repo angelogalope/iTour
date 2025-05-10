@@ -16,7 +16,7 @@ import supabase from '../utils/supabase';
 function MapScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAerialView, setIsAerialView] = useState(false);
-  const [cameraPosition, setCameraPosition] = useState({ x: 0, y: 1.5, z: 0 });
+  const [cameraPosition, setCameraPosition] = useState({ x: 0, y: 1.9, z: 0 });
   const [events, setEvents] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
   const [isOnCampus, setIsOnCampus] = useState(false);
@@ -81,7 +81,7 @@ function MapScreen() {
     
     return {
       x:-latOffset,  // Adjust axis based on model orientation
-      y: 1.5,           // Eye-level height
+      y: 1.9,           // Eye-level height
       z:-lonOffset
     };
   };
@@ -142,7 +142,7 @@ function MapScreen() {
   
     const targetPosition = isOnCampus
       ? gpsTo3DPosition(userLocation.lat, userLocation.lon)
-      : { x: -373.75469, y: 1.5, z: 62.06585 };
+      : { x: -373.75469, y: 1.9, z: 62.06585 };
   
     const animateMovement = () => {
       const currentPosition = cameraObject.position;
@@ -176,7 +176,7 @@ function MapScreen() {
         // Set the initial position of the camera
         // const initialPosition = { x: 0, y: 2, z: 0 };
         // const initialPosition = { x: -2260, y: 2, z: -100 };
-        const initialPosition = { x: -373.75469, y: 1.5, z: 62.06585 };
+        const initialPosition = { x: -373.75469, y: 1.9, z: 62.06585 };
         setCameraPosition(initialPosition);
         cameraRigRef.current.object3D.position.set(
           initialPosition.x,
@@ -266,7 +266,7 @@ function MapScreen() {
       const currentPosition = cameraRigRef.current.object3D.position;
       setCameraPosition({
         x: currentPosition.x,
-        y: isAerialView ? 1.5 : 200,
+        y: isAerialView ? 1.9 : 200,
         z: currentPosition.z,
       });
     }
@@ -282,7 +282,7 @@ function MapScreen() {
   const handleGate = () => {
     if (cameraRigRef.current) {
       const camera = cameraRigRef.current.object3D;
-      camera.position.set(-373.75469, 1.5, 62.06585);
+      camera.position.set(-373.75469, 1.9, 62.06585);
     }
   };
 
@@ -347,7 +347,7 @@ function MapScreen() {
         <a-entity>
           <a-camera
             id="camera-rig"
-            position={`${cameraPosition.x} ${isAerialView ? 200 : 1.5} ${cameraPosition.z}`}
+            position={`${cameraPosition.x} ${isAerialView ? 200 : 1.9} ${cameraPosition.z}`}
             // animation__position={`property: position; to: ${cameraPosition.x} ${isAerialView ? 200 : 2} ${cameraPosition.z}; dur: 1000; easing: easeInOutQuad`}
             look-controls={isOnCampus ? "enabled: false" : "enabled: true"}
             ref={cameraRigRef}
@@ -372,16 +372,16 @@ function MapScreen() {
         )}
 
         {/* Ground Plane */}
-        {/* <a-plane
-          scale="20 20 1"
-          position="-15 0 5"  
-          rotation="-90 180 0"
+        <a-plane
+          scale="2.85 3.5 2.82"
+          position="0 0 0"  
+          rotation="-90 191 0"
           width="270"
           height="120"
           repeat="1 1"
           shadow="receive: true"
           material="src: url(/src/assets/csu-ss.png)"
-        ></a-plane> */}
+        ></a-plane>
 
         {/* 3D Model */}
         <a-entity
@@ -390,7 +390,7 @@ function MapScreen() {
           position="10 0 -2"
           // position="55 0 -255"
           rotation="0 -350 0"
-          scale="0.43 0.4 0.42"
+          scale="0.43 0.48 0.42"
         ></a-entity>
 
         <a-entity
@@ -449,7 +449,6 @@ function MapScreen() {
           scale="0.43 0.4 0.42"
         ></a-entity>
         
-        
         <a-entity
           gltf-model="url(/src/assets/Kinaadman.glb)"
           position="4 0 -12"
@@ -468,7 +467,7 @@ function MapScreen() {
           gltf-model="url(/src/assets/Hinang.glb)"
           position="8 0 -4"
           rotation="0 -350 0"
-          scale="0.43 0.4 0.42"
+          scale="0.43 0.49 0.42"
         ></a-entity>
 
         {/* Skybox */}
