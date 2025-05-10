@@ -386,8 +386,8 @@ function MapScreen() {
         {/* 3D Model */}
         <a-entity
           ref={modelRef}
-          gltf-model="url(/assets/CSU6.glb)"
-          // obj-model="obj: url(/assets/CSU6.obj); mtl: url(/assets/CSU6.mtl)"
+          // gltf-model="url(/assets/CSU6.glb)"
+          obj-model="obj: url(/assets/CSU6.obj); mtl: url(/assets/CSU6.mtl)"
           position="10 0 -2"
           // position="55 0 -255"
           rotation="0 -350 0"
