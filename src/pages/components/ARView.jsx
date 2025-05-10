@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "aframe";
 import "ar.js";
 import { calculateBearing, calculateDistance } from '../../utils/navigationUtils';
-import "../../assets/arrow.js";
+import "../../utils/arrow";
 
 const ARView = ({ destination }) => {
   // At top of ARView.jsx

@@ -380,13 +380,13 @@ function MapScreen() {
           height="120"
           repeat="1 1"
           shadow="receive: true"
-          material="src: url(/src/assets/csu-ss.png)"
+          material="src: url(/assets/csu-ss.png)"
         ></a-plane>
 
         {/* 3D Model */}
         <a-entity
           ref={modelRef}
-          gltf-model="url(/src/assets/CSU5.glb)"
+          gltf-model="url(/assets/CSU5.glb)"
           position="10 0 -2"
           // position="55 0 -255"
           rotation="0 -350 0"
@@ -394,77 +394,77 @@ function MapScreen() {
         ></a-entity>
 
         <a-entity
-          gltf-model="url(/src/assets/CED.glb)"
+          gltf-model="url(/assets/CED.glb)"
           position="-351 0 5"
           rotation="0 -350 0"
           scale="0.43 0.4 0.42"
         ></a-entity>
         
         <a-entity
-          gltf-model="url(/src/assets/FTC.glb)"
+          gltf-model="url(/assets/FTC.glb)"
           position="-303 0 75"
           rotation="0 -350 0"
           scale="0.43 0.4 0.42"
         ></a-entity>
         
         <a-entity
-          gltf-model="url(/src/assets/CMNS-Canteen_and_LSG_Office.glb)"
+          gltf-model="url(/assets/CMNS-Canteen_and_LSG_Office.glb)"
           position="-265 0 -15"
           rotation="0 -350 0"
           scale="0.43 0.4 0.42"
         ></a-entity>
         
         <a-entity
-          gltf-model="url(/src/assets/BatokHall.glb)"
+          gltf-model="url(/assets/BatokHall.glb)"
           position="-205 0 -34"
           rotation="0 -350 0"
           scale="0.5 0.4 0.49"
         ></a-entity>
         
         <a-entity
-          gltf-model="url(/src/assets/Motorpoll.glb)"
+          gltf-model="url(/assets/Motorpoll.glb)"
           position="-135 0 -120"
           rotation="0 -350 0"
           scale="0.33 0.4 0.32"
         ></a-entity>
 
         <a-entity
-          gltf-model="url(/src/assets/Guidance_and_Registrar.glb)"
+          gltf-model="url(/assets/Guidance_and_Registrar.glb)"
           position="1 0 -4"
           rotation="0 -350 0"
           scale="0.38 0.4 0.37"
         ></a-entity>
         
         <a-entity
-          gltf-model="url(/src/assets/CAA-canteen.glb)"
+          gltf-model="url(/assets/CAA-canteen.glb)"
           position="-330 0 116"
           rotation="0 -350 0"
           scale="0.43 0.4 0.42"
         ></a-entity>
         
         <a-entity
-          gltf-model="url(/src/assets/CAA.glb)"
+          gltf-model="url(/assets/CAA.glb)"
           position="-330 0 150"
           rotation="0 -350 0"
           scale="0.43 0.4 0.42"
         ></a-entity>
         
         <a-entity
-          gltf-model="url(/src/assets/Kinaadman.glb)"
+          gltf-model="url(/assets/Kinaadman.glb)"
           position="4 0 -12"
           rotation="0 -350 0"
           scale="0.4 0.4 0.39"
         ></a-entity>
         
         <a-entity
-          gltf-model="url(/src/assets/CAS.glb)"
+          gltf-model="url(/assets/CAS.glb)"
           position="12 0 5"
           rotation="0 -350 0"
           scale="0.36 0.25 0.35"
         ></a-entity>
 
         <a-entity
-          gltf-model="url(/src/assets/Hinang.glb)"
+          gltf-model="url(/assets/Hinang.glb)"
           position="8 0 -4"
           rotation="0 -350 0"
           scale="0.43 0.49 0.42"
@@ -472,7 +472,7 @@ function MapScreen() {
 
         {/* Skybox */}
         <a-sky
-          src="/src/assets/clear-sunny-sky.jpg"
+          src="/assets/clear-sunny-sky.jpg"
           scale="1.7 1 0.8"
           radius="3000"
         ></a-sky>
@@ -486,7 +486,7 @@ function MapScreen() {
               animation="property: position; to: 0 10 0; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true"
             >
               <a-entity
-                obj-model="obj: url(/src/assets/pinpoint.obj)"
+                obj-model="obj: url(/assets/pinpoint.obj)"
                 material="color: red; shader: standard; roughness: 0.5; metalness: 0.2"
                 scale="2 2 2"
                 look-at="#camera-rig"

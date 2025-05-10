@@ -96,10 +96,10 @@ export default function Dashboard() {
                 <PiMagnifyingGlassBold size={22} />
               </div>
               <div className="flex w-full gap-2 justify-between items-center"> 
-              <button onClick={handleVMap} className="flex w-full bg-[url('/src/assets/map-btn.png')] bg-cover p-3 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-sm font-medium">
+              <button onClick={handleVMap} className="flex w-full bg-[url('/assets/map-btn.png')] bg-cover p-3 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-sm font-medium">
                 <p>CSU 3D Virtual Map</p>
               </button>
-              <button onClick={handleTour} className="flex w-full bg-[url('/src/assets/map-btn.png')] bg-cover p-3 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-sm font-medium">
+              <button onClick={handleTour} className="flex w-full bg-[url('/assets/map-btn.png')] bg-cover p-3 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-sm font-medium">
                 <p>CSU 360 Tour</p>
               </button>
               </div>
