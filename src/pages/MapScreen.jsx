@@ -453,7 +453,7 @@ function MapScreen() {
           gltf-model="url(/assets/Kinaadman.glb)"
           position="4 0 -12"
           rotation="0 -350 0"
-          scale="0.4 0.4 0.39"
+          scale="0.4 0.49 0.39"
         ></a-entity>
         
         <a-entity
