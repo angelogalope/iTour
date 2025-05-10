@@ -9,7 +9,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       workbox: {
-        maximumFileSizeToCacheInBytes: 100 * 1024 * 1024,
+        maximumFileSizeToCacheInBytes: 200 * 1024 * 1024,
       },
       manifest: {
         name: 'iTour',
