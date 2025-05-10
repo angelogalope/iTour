@@ -28,7 +28,7 @@ export default defineConfig({
             type: 'image/png',
           },
           {
-            src: 'iTour-icon-512x512.png',
+            src: 'iTour-icon-512x512-maskable.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
