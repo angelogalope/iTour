@@ -286,6 +286,12 @@ function MapScreen() {
     }
   };
 
+  useEffect(() => {
+    if (window.THREE && window.THREE.DRACOLoader) {
+      window.THREE.DRACOLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+    }
+  }, []);
+
   return (
     <div className="h-screen flex flex-col items-center justify-center relative">
       {/* Loading Screen */}
