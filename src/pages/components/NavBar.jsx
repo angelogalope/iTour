@@ -41,7 +41,7 @@ export default function NavBar() {
   };
 
   const handleMapBtn = () => {
-    navigate('/mapscreen');
+    handleMapRedirectWithPrompt();
   };
 
   const handleFavBtn = () => {
@@ -64,6 +64,12 @@ export default function NavBar() {
       // Fallback for the web: display an alert or other notification
       alert("Exit is not supported on the web. Close the browser tab to exit.");
     }
+  };
+
+  const handleMapRedirectWithPrompt = (selectedEvent = null) => {
+      if (window.confirm("In order to accurately calibrate the AR 3D model, face South first.")) {
+          navigate('/mapscreen');
+      }
   };
 
   return (

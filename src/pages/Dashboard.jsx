@@ -33,7 +33,7 @@ export default function Dashboard() {
   }
 
   const handleVMap = () => {
-    navigate('/mapscreen');
+    handleMapRedirectWithPrompt();
   }
   
   const handleTour = () => {
@@ -51,7 +51,7 @@ export default function Dashboard() {
   );
 
   const handleBuildingSelect = (building) => {
-    navigate('/mapscreen', { state: { selectedBuilding: building.waypointId } });
+    handleMapRedirectWithPrompt(building.waypointId);
   };
 
   const closeWarning = () => {
@@ -59,6 +59,11 @@ export default function Dashboard() {
     setShowWarning(false);
   };
 
+  const handleMapRedirectWithPrompt = (selectedBuildingId = null) => {
+    if (window.confirm("In order to accurately calibrate the AR 3D model, face South first.")) {
+      navigate('/mapscreen', selectedBuildingId ? { state: { selectedBuilding: selectedBuildingId } } : {});
+    }
+  };
 
   return (
     <div className="bg-primWhite min-h-screen w-full flex flex-col pb-28">

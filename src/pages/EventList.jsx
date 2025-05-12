@@ -20,6 +20,12 @@ const EventList = () => {
         navigate(-1);
     };
 
+    const handleMapRedirectWithPrompt = (selectedEvent = null) => {
+        if (window.confirm("In order to accurately calibrate the AR 3D model, face South first.")) {
+        navigate('/mapscreen', selectedEvent ? { state: { coordinates: selectedEvent } } : {});
+        }
+    };
+
     const handleNavigateBtn = (event) => {
         console.log('This is coordinates from events: ', event.x_coordinate, event.y_coordinate);
 
@@ -29,7 +35,7 @@ const EventList = () => {
         );
 
         if (matchedBuilding) {
-            navigate('/mapscreen', { state: { coordinates: matchedBuilding.waypointId } });
+            handleMapRedirectWithPrompt(matchedBuilding.waypointId);
             console.log("Navigating to:", matchedBuilding.waypointId);
         } else {
             console.error(`No matching building found for event: ${event.title}`);
