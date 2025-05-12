@@ -504,12 +504,12 @@ function MapScreen() {
             />
           </div>
 
-          {/* <div className="absolute bottom-20 left-6 bg-white p-2 rounded-md shadow-md z-50">
+          <div className="absolute bottom-20 left-6 bg-white p-2 rounded-md shadow-md z-50">
             <p className="text-sm font-mono">
               X: {cameraPosition.x}, Y: {cameraPosition.y}, Z:{" "}
               {cameraPosition.z}
             </p>
-          </div> */}
+          </div>
         </div>
       )}
 
@@ -757,6 +757,225 @@ function MapScreen() {
           </a-entity>
         ))}
 
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 8; width: 20"
+          material="color: green; opacity: 0.5"
+          position="-351 10 30"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="Iwag Hall - College of Education"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="15"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
+        
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 8; width: 20"
+          material="color: green; opacity: 0.5"
+          position="-338 10 120"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="College of Agriculture and Agri-Industries"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="15"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
+        
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 8; width: 20"
+          material="color: green; opacity: 0.5"
+          position="-304 10 67"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="Food Technology Center"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="15"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
+        
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 5; width: 20"
+          material="color: green; opacity: 0.5"
+          position="-200 10 20"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="Batok Hall - College of Mathematics and Natural Sciences"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="30"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
+        
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 8; width: 20"
+          material="color: green; opacity: 0.5"
+          position="-182 20 66"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="CSU Library - H.E.R.O. Learning Commons"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="15"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
+        
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 8; width: 20"
+          material="color: green; opacity: 0.5"
+          position="-126 20 -43"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="CSU New Administration Building"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="15"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
+        
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 8; width: 20"
+          material="color: green; opacity: 0.5"
+          position="-70 10 -11"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="CSU Old Administration Building"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="15"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
+        
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 8; width: 25"
+          material="color: green; opacity: 0.5"
+          position="-0 10 -63"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="Kinaadman Hall - College of Humanities and Social Sciences"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="20"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
+        
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 8; width: 25"
+          material="color: green; opacity: 0.5"
+          position="45 10 39"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="Old CAS"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="20"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
+        
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 8; width: 25"
+          material="color: green; opacity: 0.5"
+          position="87 10 -55"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="Hiraya Hall - College of Computing and Information Science"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="20"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
+        
+        <a-entity>
+          <a-entity
+          className="hotspot"
+          geometry="primitive: plane; height: 8; width: 25"
+          material="color: green; opacity: 0.5"
+          position="129 10 -60"
+          look-at="#camera-rig"
+          
+          >
+            <a-text
+              value="Hinang Hall - College of Engineering and Geosciences"
+              align="center"
+              color="white"
+              width="15"
+              wrap-count="20"
+              position="0 0 0"
+            ></a-text>
+          </a-entity>
+        </a-entity>
 
       </a-scene>
     </div>
