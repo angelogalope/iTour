@@ -72,9 +72,9 @@ export default [
     {
         id: 8,
         building: 'Hiraya Hall - College of Computing and Information Sciences',
-        xCoord: 89.28239367292362,
+        xCoord: 86.71906673398853,
         yCoord: 1.5,
-        zCoord: -47.778460568839265,
+        zCoord: -64.72643546390182,
         lat: 8.955243,
         long: 125.597645,
         waypointId: 'ccis'

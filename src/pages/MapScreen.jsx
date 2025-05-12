@@ -315,6 +315,10 @@ function MapScreen() {
           handleNavigateTo(location.state.selectedBuilding);
         }
 
+        if (location.state?.coordinates) {
+          handleNavigateTo(location.state.coordinates);
+        }
+
         // Temporarily disable look-controls
         cameraRigRef.current.setAttribute("look-controls", "enabled", false);
 

@@ -4,7 +4,7 @@ import EventListSkeleton from './components/EventListSkeleton'; // Import the Sk
 import NavBar from './components/NavBar';
 import { useNavigate } from 'react-router';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import { mapToRealCoordinates } from '../utils/coordinateMapper'; // Import your mapping function
+import buildingCoords from '../data/buildingCoords';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -19,14 +19,20 @@ const EventList = () => {
     const handleBack = () => {
         navigate(-1);
     };
+
     const handleNavigateBtn = (event) => {
-        console.log(event.x_coordinate, event.y_coordinate);
-        const realCoordinates = mapToRealCoordinates(event.x_coordinate, event.y_coordinate);
-        if (realCoordinates) {
-            navigate('/navigation', { state: { coordinates: realCoordinates } });
-            console.log("Navigating to: ", realCoordinates);
+        console.log('This is coordinates from events: ', event.x_coordinate, event.y_coordinate);
+
+        // Search for matching building
+        const matchedBuilding = buildingCoords.find(building =>
+            building.xCoord === event.x_coordinate && building.zCoord === event.y_coordinate
+        );
+
+        if (matchedBuilding) {
+            navigate('/mapscreen', { state: { coordinates: matchedBuilding.waypointId } });
+            console.log("Navigating to:", matchedBuilding.waypointId);
         } else {
-            console.error(`No real-world coordinates found for event: ${event.title}`);
+            console.error(`No matching building found for event: ${event.title}`);
         }
     };
 
