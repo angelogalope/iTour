@@ -6,7 +6,8 @@ export default [
         yCoord: 1.5,
         zCoord: 34.346063849315854,
         lat: 8.959376,
-        long: 125.596907
+        long: 125.596907,
+        waypointId: 'ced'
     },
     {
         id: 2,
@@ -15,7 +16,8 @@ export default [
         yCoord: 1.5,
         zCoord: 121.30593723276345,
         lat: 8.959193,
-        long: 125.595942
+        long: 125.595942,
+        waypointId: 'caa'
     },
     {
         id: 3,
@@ -24,7 +26,8 @@ export default [
         yCoord: 1.5,
         zCoord: 18.338651222621415,
         lat: 8.957911,
-        long: 125.596894
+        long: 125.596894,
+        waypointId: 'cmns'
     },
     {
         id: 4,
@@ -33,7 +36,8 @@ export default [
         yCoord: 1.5,
         zCoord: 51.06968670528483,
         lat: 8.957763,
-        long: 125.596524
+        long: 125.596524,
+        waypointId: 'library'
     },
     {
         id: 5,
@@ -42,7 +46,8 @@ export default [
         yCoord: 1.5,
         zCoord: 3.38086548571054,
         lat: 8.957076,
-        long: 125.597358
+        long: 125.597358,
+        waypointId: 'admin'
     },
     {
         id: 6,
@@ -51,7 +56,8 @@ export default [
         yCoord: 1.5,
         zCoord: 55.61621864173414,
         lat: 8.955706,
-        long: 125.596832
+        long: 125.596832,
+        waypointId: 'old-cas'
     },
     {
         id: 7,
@@ -60,7 +66,8 @@ export default [
         yCoord: 1.5,
         zCoord: -32.55184392205694,
         lat: 8.956043,
-        long: 125.597562
+        long: 125.597562,
+        waypointId: 'chass'
     },
     {
         id: 8,
@@ -69,7 +76,8 @@ export default [
         yCoord: 1.5,
         zCoord: -47.778460568839265,
         lat: 8.955243,
-        long: 125.597645
+        long: 125.597645,
+        waypointId: 'ccis'
     },
     {
         id: 9,
@@ -78,7 +86,8 @@ export default [
         yCoord: 1.5,
         zCoord: -59.04635743707626,
         lat: 8.954856,
-        long: 125.597717
+        long: 125.597717,
+        waypointId: 'cegs'
     },
     {
         id: 10,
@@ -87,7 +96,8 @@ export default [
         yCoord: 1.5,
         zCoord: -42.25233487857784,
         lat: 8.953335,
-        long: 125.597489
+        long: 125.597489,
+        waypointId: 'cofes'
     },
     {
         id: 11,
@@ -96,6 +106,31 @@ export default [
         yCoord: 1.5,
         zCoord: 109.20834152590295,
         lat: 8.956006,
-        long: 125.595867
+        long: 125.595867,
+        waypointId: 'gym'
     },
+    {
+        id: 12,
+        building: 'Food and Technology Center',
+        xCoord: -304.00000000000006,
+        yCoord: 1.5,
+        zCoord: 64.00000000000001,
+        waypointId: 'ftc'
+    },
+    {
+        id: 13,
+        building: 'CMNS Canteen and LSG Office',
+        xCoord: -255,
+        yCoord: 1.5,
+        zCoord: 19,
+        waypointId: 'cmns-canteen'
+    },
+    {
+        id: 14,
+        building: 'Old Admin Building',
+        xCoord: -78,
+        yCoord: 1.5,
+        zCoord: -6,
+        waypointId: 'old-admin'
+    }
 ]

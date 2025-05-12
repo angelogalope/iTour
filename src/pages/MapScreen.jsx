@@ -12,6 +12,8 @@ import Restrict from './components/restrict';
 import { useNavigate } from 'react-router';
 import SearchMenu from './components/SearchMenu';
 import supabase from '../utils/supabase';
+import wayPoints from '../data/wayPoints';
+import graph from '../data/graphs';
 
 function MapScreen() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,8 +27,117 @@ function MapScreen() {
   // const CAMPUS_LAT_CENTER = 8.955521; // Your campus center coordinates
   // const CAMPUS_LON_CENTER = 125.597184;
   const [hasUserMovedManually, setHasUserMovedManually] = useState(false);
+  const [navPath, setNavPath] = useState([]); // stores sequence of waypoint ids
+  const navLineRef = useRef(null);
 
   const rafRef = useRef();
+
+  const getWaypointPosition = (id) => {
+    const wp = wayPoints.find(wp => wp.id === id);
+    return wp ? wp.position : null;
+  };
+
+  const interpolatePointsBetween = (start, end, stepDistance = 5) => {
+    const dx = end.x - start.x;
+    const dz = end.z - start.z;
+    const distance = Math.sqrt(dx * dx + dz * dz);
+    const numSteps = Math.floor(distance / stepDistance);
+    const result = [start];
+
+    for (let i = 1; i < numSteps; i++) {
+      const t = i / numSteps;
+      const x = start.x + dx * t;
+      const z = start.z + dz * t;
+      result.push({ x, y: start.y, z });
+    }
+
+    return result;
+  };
+
+  const getDistance = (a, b) => {
+  const dx = a.x - b.x;
+  const dz = a.z - b.z;
+  return Math.sqrt(dx * dx + dz * dz);
+};
+
+const findClosestWaypointId = (currentPosition) => {
+  if (!currentPosition) return null;
+
+  let closestId = null;
+  let minDistance = Infinity;
+
+  wayPoints.forEach(wp => {
+    const distance = getDistance(wp.position, currentPosition);
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestId = wp.id;
+    }
+  });
+
+  return closestId;
+};
+
+const findClosestWaypointIndex = (path, currentPosition) => {
+  if (!currentPosition || !path.length) return 0;
+
+  let closestIndex = 0;
+  let minDistance = Infinity;
+
+  path.forEach((id, index) => {
+    const pos = getWaypointPosition(id);
+    if (pos) {
+      const distance = getDistance(pos, currentPosition);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = index;
+      }
+    }
+  });
+
+  return closestIndex;
+};
+
+  const findPath = (startId, endId) => {
+    const queue = [[startId]];
+    const visited = new Set();
+
+    while (queue.length > 0) {
+      const path = queue.shift();
+      const node = path[path.length - 1];
+
+      if (node === endId) {
+        return path;
+      }
+
+      if (!visited.has(node)) {
+        visited.add(node);
+        const neighbors = graph[node] || [];
+        neighbors.forEach(neighbor => {
+          queue.push([...path, neighbor]);
+        });
+      }
+    }
+
+    return null; // No path found
+  };
+
+  const handleNavigateTo = (destinationId) => {
+  const currentPos = cameraPosition; // Already being tracked in state
+  const startId = findClosestWaypointId(currentPos);
+
+  if (!startId) {
+    console.warn('No closest waypoint found for current position.');
+    return;
+  }
+
+  const path = findPath(startId, destinationId);
+  if (path) {
+    console.log('Navigation path:', path);
+    setNavPath(path);
+  } else {
+    console.warn('No path found from', startId, 'to', destinationId);
+  }
+};
 
   if (AFRAME) {
     delete AFRAME.systems['arjs'];
@@ -154,10 +265,21 @@ function MapScreen() {
   
       animationFrameId = requestAnimationFrame(animateMovement);
     };
-  
+
+    const tick = () => {
+      const position = cameraRigRef.current.object3D.position;
+      setCameraPosition({
+        x: position.x,
+        y: position.y,
+        z: position.z,
+      });
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
     animateMovement();
+    tick();
   
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => cancelAnimationFrame(animationFrameId, rafRef.current);
   }, [userLocation, isOnCampus, hasUserMovedManually]);
 
   useEffect(() => {  
@@ -266,7 +388,7 @@ function MapScreen() {
       const currentPosition = cameraRigRef.current.object3D.position;
       setCameraPosition({
         x: currentPosition.x,
-        y: isAerialView ? 1.9 : 200,
+        y: isAerialView ? 1.9 : 40,
         z: currentPosition.z,
       });
     }
@@ -299,6 +421,15 @@ function MapScreen() {
           <button onClick={handleBack} className="absolute top-14 left-6 p-4 rounded-full shadow-slate-800 shadow-md flex bg-white z-50">
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
+          {/* <div className="absolute flex flex-col top-36 left-0 bg-black bg-opacity-40 p-2 rounded-md shadow-md z-50">
+            <button onClick={() => handleNavigateTo('ced')} className="p-2 m-1 bg-blue-500 bg-opacity-80 text-white rounded">Go to CED</button>
+            <button onClick={() => handleNavigateTo('caa')} className="p-2 m-1 bg-blue-500 bg-opacity-80 text-white rounded">Go to CAA</button>
+            <button onClick={() => handleNavigateTo('ftc')} className="p-2 m-1 bg-blue-500 bg-opacity-80 text-white rounded">Go to FTC</button>
+            <button onClick={() => handleNavigateTo('harrison-bridge')} className="p-2 m-1 bg-blue-500 bg-opacity-80 text-white rounded">Go to Harrison Bridge</button>
+            <button onClick={() => handleNavigateTo('harrison-crossroad')} className="p-2 m-1 bg-blue-500 bg-opacity-80 text-white rounded">Go to Harrison Crossroad</button>
+          </div> */}
+
+          
 
           {/* Top-Right Menu */}
           <div className="absolute flex flex-col top-14 right-6 shadow-slate-800 shadow-lg z-50 rounded-xl">
@@ -317,11 +448,12 @@ function MapScreen() {
           <div className="">
             <SearchMenu
               onBuildingSelect={(building) => {
-                if (cameraRigRef.current) {
-                  const camera = cameraRigRef.current.object3D;
-                  camera.position.set(building.xCoord, building.yCoord, building.zCoord);
-                  setCameraPosition({ x: building.xCoord, y: building.yCoord, z: building.zCoord });
-                }
+                // if (cameraRigRef.current) {
+                //   const camera = cameraRigRef.current.object3D;
+                //   camera.position.set(building.xCoord, building.yCoord, building.zCoord);
+                //   setCameraPosition({ x: building.xCoord, y: building.yCoord, z: building.zCoord });
+                // }
+                handleNavigateTo(building.waypointId);
               }}
             />
           </div>
@@ -343,11 +475,79 @@ function MapScreen() {
             arjs="sourceType: webcam; debugUIEnabled: false"
           ></a-entity>
         )}
+        {navPath.length > 1 && (
+  <a-entity ref={navLineRef}>
+    {(() => {
+      const linePoints = navPath.map(id => getWaypointPosition(id));
+      if (!linePoints.every(Boolean)) return null;
+      
+      // Find the closest waypoint index to current camera position
+      const currentIndex = findClosestWaypointIndex(navPath, cameraPosition);
+      const visiblePath = linePoints.slice(currentIndex);
+      
+      let allArrowPositions = [];
+      for (let i = 0; i < visiblePath.length - 1; i++) {
+        const start = visiblePath[i];
+        const end = visiblePath[i + 1];
+        const segmentPoints = interpolatePointsBetween(start, end, 2); // adjust step as needed
+        allArrowPositions = allArrowPositions.concat(segmentPoints);
+      }
+      allArrowPositions.pop();
+      
+      // Calculate overall direction from first to last point in visible path
+      const firstPoint = visiblePath[0];
+      const lastPoint = visiblePath[visiblePath.length - 1];
+      const dxOverall = lastPoint.x - firstPoint.x;
+      const dzOverall = lastPoint.z - firstPoint.z;
+      const angleOverall = Math.atan2(dzOverall, dxOverall);
+      const yawOverall = THREE.MathUtils.radToDeg(-angleOverall) - 90;
+      const destinationPos = linePoints[linePoints.length - 1];
+      
+      return (
+        <>
+          {allArrowPositions.map((pos, index) => {
+            // For each arrow, use the overall direction instead of local segment direction
+            return (
+              <a-entity
+                key={`${pos.x}-${pos.z}-${index}`}
+                position={`${pos.x} ${pos.y + 1} ${pos.z}`} // Slightly above ground
+                rotation={`0 ${yawOverall} 0`} // Use overall direction
+                scale=".8 .8 .8" // Adjust size as needed
+              >
+                <a-entity
+                  gltf-model="url(/assets/triangle.glb)"
+                  material="color: blue"
+                  shadow="cast: false"
+                  animation="property: position; to: 0 0 1; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true"
+                ></a-entity>
+              </a-entity>
+            );
+          })}
+          {destinationPos && (
+            <a-entity position={`${destinationPos.x + 1.5} 4 ${destinationPos.z}`}>
+              
+            <a-entity
+              animation="property: position; to: 0 1 0; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true"
+            >
+              <a-entity
+                obj-model="obj: url(/assets/pinpoint.obj)"
+                material="color: red; shader: standard; roughness: 0.5; metalness: 0.2"
+                scale="1 1 1"
+                look-at="#camera-rig"
+              ></a-entity>
+            </a-entity>
+            </a-entity>
+)}
+        </>
+      );
+    })()}
+  </a-entity>
+)}
 
         <a-entity>
           <a-camera
             id="camera-rig"
-            position={`${cameraPosition.x} ${isAerialView ? 200 : 1.9} ${cameraPosition.z}`}
+            position={`${cameraPosition.x} ${isAerialView ? 40 : 1.9} ${cameraPosition.z}`}
             // animation__position={`property: position; to: ${cameraPosition.x} ${isAerialView ? 200 : 2} ${cameraPosition.z}; dur: 1000; easing: easeInOutQuad`}
             look-controls={isOnCampus ? "enabled: false" : "enabled: true"}
             ref={cameraRigRef}
@@ -361,7 +561,7 @@ function MapScreen() {
             position="0 0 0"
             style={{
               position: 'absolute',
-              bottom: '20%',
+              bottom: '25%',
               left: '50%',
               transform: 'translateX(10%)',
               width: '200px',
@@ -386,7 +586,7 @@ function MapScreen() {
         {/* 3D Model */}
         <a-entity
           ref={modelRef}
-          gltf-model="url(/assets/CSU6.glb)"
+          gltf-model="url(/assets/CSU5 (2).glb)"
           position="10 0 -2"
           // position="55 0 -255"
           rotation="0 -350 0"

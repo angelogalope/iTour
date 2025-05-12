@@ -43,7 +43,7 @@ if (typeof AFRAME !== 'undefined') {
       
       // Create a model entity for the car arrow
       const arrowModel = document.createElement('a-entity');
-      arrowModel.setAttribute('gltf-model', 'src/assets/triangle.glb');
+      arrowModel.setAttribute('gltf-model', 'assets/triangle.glb');
       arrowModel.setAttribute('scale', `${data.size} ${data.size} ${data.size}`);
       arrowModel.setAttribute('id', 'arrow-shape');
       

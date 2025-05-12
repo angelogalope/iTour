@@ -9,14 +9,14 @@ export default function SearchMenu({ onBuildingSelect }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [{ height }, api] = useSpring(() => ({
-    height: 12,
+    height: 20,
     config: { tension: 200, friction: 30 },
   }));
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
     api.start({
-      height: isExpanded ? 12 : 70,
+      height: isExpanded ? 20 : 80,
     });
   };
 
@@ -29,15 +29,15 @@ export default function SearchMenu({ onBuildingSelect }) {
         
         if (my > 50) {
           setIsExpanded(false);
-          api.start({ height: 12 });
+          api.start({ height: 20 });
         } else if (my < -50) {
           setIsExpanded(true);
-          api.start({ height: 70 });
+          api.start({ height: 80 });
         } else {
-          api.start({ height: isExpanded ? 70 : 12 });
+          api.start({ height: isExpanded ? 80 : 20 });
         }
       } else {
-        api.start({ height: Math.max(12, Math.min(70, memo - my / 10)) });
+        api.start({ height: Math.max(20, Math.min(80, memo - my / 10)) });
       }
       return memo;
     }
@@ -50,7 +50,7 @@ export default function SearchMenu({ onBuildingSelect }) {
   const handleBuildingClick = (building) => {
     console.log("Building selected:", building);
     setIsExpanded(false);
-    api.start({ height: 12 });
+    api.start({ height: 20 });
     onBuildingSelect(building);
   };
 
@@ -61,7 +61,7 @@ export default function SearchMenu({ onBuildingSelect }) {
         height: height.to((h) => `${h}%`),
         touchAction: "none",
       }}
-      className="absolute bottom-14 left-0 right-0 z-50 bg-white rounded-t-3xl w-full"
+      className="absolute bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl w-full"
     >
       <div className="flex flex-col items-center gap-t-2 p-4">
         <hr className="border-4 rounded-full w-28 border-gray-300 cursor-pointer" />
@@ -78,7 +78,7 @@ export default function SearchMenu({ onBuildingSelect }) {
             }}
           />
         </div>
-        <div className="w-full flex-grow overflow-y-auto h-96 pt-2">
+        <div className="w-full flex-grow overflow-y-auto h-[473px] pt-2">
           {filteredBuildings.length > 0 ? (
             filteredBuildings.map((building) => (
               <div
