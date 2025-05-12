@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
 import EventCarousel from './components/EventCarousel';
+import buildingCoords from '../data/buildingCoords'; 
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -44,6 +45,14 @@ export default function Dashboard() {
     navigate(`/${page}`);
     setIsSideBarOpen(false);
   }
+
+  const filteredBuildings = buildingCoords.filter(building =>
+    building.building.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleBuildingSelect = (building) => {
+    navigate('/mapscreen', { state: { selectedBuilding: building.waypointId } });
+  };
 
   const closeWarning = () => {
     sessionStorage.setItem('hasSeenWarning', 'true');
@@ -86,28 +95,49 @@ export default function Dashboard() {
           <div className="flex flex-col gap-4 px-6">
             <h1 className="flex flex-col text-3xl font-black">Navigate To <span>Your Destination</span></h1>
             <div className="flex flex-col gap-4">
-              <div className="flex p-3 items-center text-gray-500 font-semibold bg-white rounded-lg shadow-gray-500 shadow-md">
-                <input 
-                  type="text" 
-                  placeholder="Search Interior 360 Virtual Tour..." 
-                  value={searchQuery} 
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full text-md outline-none bg-transparent text-black font-normal" />
-                <PiMagnifyingGlassBold size={22} />
+              <div className="relative">
+                <div className="flex p-3 items-center text-gray-500 font-semibold bg-white rounded-lg shadow-gray-500 shadow-md">
+                  <input 
+                    type="text" 
+                    placeholder="Search Destination" 
+                    value={searchQuery} 
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full text-md outline-none bg-transparent text-black font-normal"
+                  />
+                  <PiMagnifyingGlassBold size={22} />
+                </div>
+
+                {/* Show dropdown only if there are results and input is not empty */}
+                {searchQuery && filteredBuildings.length > 0 && (
+                  <div className="absolute w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
+                    {filteredBuildings.map((building) => (
+                      <div
+                        key={building.id}
+                        onClick={() => {
+                          setSearchQuery('');
+                          handleBuildingSelect(building);
+                        }}
+                        className="p-2 hover:bg-gray-100 cursor-pointer transition-colors duration-150"
+                      >
+                        {building.building}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="flex w-full gap-2 justify-between items-center"> 
-              <button onClick={handleVMap} className="flex w-full bg-[url('/assets/map-btn.png')] bg-cover p-3 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-sm font-medium">
-                <p>CSU 3D Virtual Map</p>
-              </button>
-              <button onClick={handleTour} className="flex w-full bg-[url('/assets/map-btn.png')] bg-cover p-3 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-sm font-medium">
-                <p>CSU 360 Tour</p>
-              </button>
+                <button onClick={handleVMap} className="flex w-full bg-[url('/assets/map-btn.png')] bg-cover p-3 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-sm font-medium">
+                  <p>CSU AR Map</p>
+                </button>
+                {/* <button onClick={handleTour} className="flex w-full bg-[url('/assets/map-btn.png')] bg-cover p-3 items-center justify-between rounded-lg shadow-gray-500 shadow-md text-white text-sm font-medium">
+                  <p>CSU 360 Tour</p>
+                </button> */}
               </div>
             </div>
           </div>
           <div className="flex flex-col gap-4 pt-2">
             <h1 className="px-6 text-lg font-semibold">Interior 360 Virtual Tour</h1>
-            <Carousel searchQuery={searchQuery} />
+            <Carousel />
           </div>
 
           <div className="flex flex-col gap-4 pt-2 pb-36 mt-4">
