@@ -2,7 +2,7 @@
 
 &#x20;  &#x20;
 
-> 🚧 **Note:** This project is currently in **Alpha** and under active development. Core functionality is experimental and may break or change frequently.
+> 🚧 **Note:** This project is currently in **Alpha**. Core functionality is experimental and may break or change frequently.
 
 ---
 
